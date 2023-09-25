@@ -1,27 +1,141 @@
-# React + TypeScript + Vite
+<div id="top"></div>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="#">
+    <img src="assets/img/g-logo_myv.svg" alt="Logo" width="80" height="80">
+  </a>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+  <h3 align="center">GEOFORM</h3>
 
-## Expanding the ESLint configuration
+  <p align="center">Some variants of the logo.</p>
+    
+   <img src="assets/img/myvlogo-logos_variantes.svg" height="60">
+</div>
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+<!-- ABOUT THE PROJECT -->
+## About The Project
 
-- Configure the top-level `parserOptions` property like this:
+this project starts as an alternative to the problem that was presented to us. 
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+with this I could merge my habbilities and capacitations: cartograpy, geography, design.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Here's why:
+* At field work we meet with the need of update informatios about of these beneficiaries.
+* the form represents the available options as an example. But, you can add other entries depending on the needs.
+* If the field work need a auto geolcation, this proyect it have. But, allow to consult the handling of the geolocator manually.
+* Submit geolocates, name and descriptions by defoult.
+* Connecto with database, and save de informations submited.
+
+Finally, process the field information, instead. Searching manually the placce in the map.
+
+
+
+### Built With
+
+This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+
+* [React](https://reactjs.org/)
+* [Tailwindcss](https://tailwindcss.com/)
+* [Leaflet](https://leafletjs.com/)
+
+
+
+<!-- GETTING STARTED -->
+## Getting Started
+
+Here below, I share a serie of steps and features, for than you install the proyect.
+Feel free to modify and improve this code.
+Assuming you have a firebase project, with steps it will be enough.
+
+
+### Installation
+
+
+1. Into of you firebase account, search "config proyect" (SDK) and copy data.
+   ```sh
+    const firebaseConfig = {
+    apiKey: "xxxxxxxxxxxxxxxx",
+    authDomain: "xxxxxxxxxxxxxxxx",
+    projectId: "xxxxxxxxxxxxxxxx",
+    storageBucket: "xxxxxxxxxxxxxxxx",
+    messagingSenderId: "xxxxxxxxxxxxxxxx",
+    appId: "xxxxxxxxxxxxxxxx"
+    };
+   ```
+2. Clone the repo
+   ```sh
+   git clone https://github.com/aron1984/geoform.git
+   ```
+3. Set the firebase.js into, with the info than copy at the top
+   ```sh
+    const firebaseConfig = {
+    apiKey: "xxxxxxxxxxxxxxxx",
+    authDomain: "xxxxxxxxxxxxxxxx",
+    projectId: "xxxxxxxxxxxxxxxx",
+    storageBucket: "xxxxxxxxxxxxxxxx",
+    messagingSenderId: "xxxxxxxxxxxxxxxx",
+    appId: "xxxxxxxxxxxxxxxx"
+    };
+   ```
+4. In VS CODE install `Live Server`. Tool very good
+  
+
+
+
+
+<!-- USAGE EXAMPLES -->
+## Usage
+
+Here I'll paste some screenshots
+
+
+
+
+<!-- ROADMAP -->
+## Roadmap
+
+- [x] Add map
+- [x] Add geolocate 
+- [x] Add form & alerts
+- [x] Add light & dark mode
+- [ ] Add browser
+- [ ] Add layers map
+- [ ] Add Page List
+- [ ] Add Login
+- [ ] Add form state off line
+- [ ] Multi-language Support
+    - [ ] English
+    - [x] Spanish
+
+
+
+<!-- CONTRIBUTING -->
+
+
+
+
+<!-- LICENSE -->
+
+
+
+
+<!-- CONTACT -->
+## Contact
+
+Your Name - [linkedin](https://twitter.com/your_username) - ronconialejandro@gmail.com
+
+
+
+<img src="assets/img/g-myvsolutions.svg" height="60">
+
+Project Link: 
+
+<p align="right"><a href="#top">TO TOP</a></p>
+
+
+
+
+
