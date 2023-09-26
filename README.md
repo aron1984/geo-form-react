@@ -5,37 +5,35 @@
 <br />
 <div align="center">
   <a href="#">
-    <img src="assets/img/g-logo_myv.svg" alt="Logo" width="80" height="80">
+    <img src="src/assets/img/g-logo_myv.svg" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">GEOFORM</h3>
+  <h3 align="center">GEOFORM REACT</h3>
 
   <p align="center">Some variants of the logo.</p>
     
-   <img src="assets/img/myvlogo-logos_variantes.svg" height="60">
+   <img src="src/assets/img/myvlogo-logos_variantes.svg" height="60">
 </div>
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-this project starts as an alternative to the problem that was presented to us. 
-
-with this I could merge my habbilities and capacitations: cartograpy, geography, design.
+This project started as an alternative to address the problem we encountered. It allowed me to merge my skills and expertise in cartography, geography, and design.
 
 Here's why:
-* At field work we meet with the need of update informatios about of these beneficiaries.
-* the form represents the available options as an example. But, you can add other entries depending on the needs.
-* If the field work need a auto geolcation, this proyect it have. But, allow to consult the handling of the geolocator manually.
-* Submit geolocates, name and descriptions by defoult.
-* Connecto with database, and save de informations submited.
 
-Finally, process the field information, instead. Searching manually the placce in the map.
+During fieldwork, we often encountered the need to update information about the beneficiaries. The provided form serves as an example of the available options, but you can also add other entries based on specific needs.
 
+If fieldwork requires automatic geolocation, this project has it covered. However, it also allows for manual geolocation handling when needed.
+
+You can submit geolocations, names, and descriptions by default. It connects to a database and saves the submitted information.
+
+Finally, it streamlines the process of handling field information, eliminating the need for manual place searching on the map.
 
 
 ### Built With
 
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgments section. Here are a few examples:
 
 * [React](https://reactjs.org/)
 * [Tailwindcss](https://tailwindcss.com/)
@@ -46,9 +44,7 @@ This section should list any major frameworks/libraries used to bootstrap your p
 <!-- GETTING STARTED -->
 ## Getting Started
 
-Here below, I share a serie of steps and features, for than you install the proyect.
-Feel free to modify and improve this code.
-Assuming you have a firebase project, with steps it will be enough.
+Below, I share a series of steps and features for you to install the project. Feel free to modify and enhance this code. Assuming you already have a Firebase project, these steps should be sufficient.
 
 
 ### Installation
@@ -67,7 +63,7 @@ Assuming you have a firebase project, with steps it will be enough.
    ```
 2. Clone the repo
    ```sh
-   git clone https://github.com/aron1984/geoform.git
+   git clone git@github.com:aron1984/geo-form-react.git
    ```
 3. Set the firebase.js into, with the info than copy at the top
    ```sh
@@ -129,7 +125,7 @@ Your Name - [linkedin](https://twitter.com/your_username) - ronconialejandro@gma
 
 
 
-<img src="assets/img/g-myvsolutions.svg" height="60">
+<img src="src/assets/img/g-myvsolutions.svg" height="60">
 
 Project Link: 
 
