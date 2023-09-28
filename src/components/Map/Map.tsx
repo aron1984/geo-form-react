@@ -43,7 +43,8 @@ export const Map = () => {
       center={position}
       zoom={13}
       scrollWheelZoom={false}
-      style={{ height: "50vh", width: "100%" }}
+      className="relative top-10 md:top-20"
+      style={{ height: "80vh", width: "100%", zIndex: '0' }}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
