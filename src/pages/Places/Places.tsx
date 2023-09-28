@@ -1,10 +1,10 @@
 import { Layout } from "../../components/layout";
 
-export const About = () => {
+export const Places = () => {
   return (
-    <Layout title="about">
+    <Layout title="places">
       <div className="relative top-10 md:top-20">
-        <h1 className="text-red-600 text-xl font-bold">About</h1>
+        <h1 className="text-red-600 text-xl font-bold">Mis lugares</h1>
       </div>
     </Layout>
   );

@@ -7,10 +7,10 @@ import { getGeolocs } from "../../../firebase";
 // import { escuelas } from "../../utils/";
 
 interface IGeoData {
-  description:string
-  lat: string
-  lng: string
-  name: string
+  description: string;
+  lat: string;
+  lng: string;
+  name: string;
 }
 
 export const Map = () => {
@@ -44,20 +44,21 @@ export const Map = () => {
       zoom={13}
       scrollWheelZoom={false}
       className="relative top-10 md:top-20"
-      style={{ height: "80vh", width: "100%", zIndex: '0' }}
+      style={{ height: "80vh", width: "100%", zIndex: "0" }}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       {geoData &&
-        geoData.map((mark:IGeoData) => (
+        geoData.map((mark: IGeoData, index) => (
           <Marker
+            key={index}
             position={[parseFloat(mark?.lat), parseFloat(mark?.lng)]}
             icon={customIcon}
           >
             <Popup>
-              A pretty CSS3 popup. <br /> Easily customizable.
+              {mark.description}
             </Popup>
           </Marker>
         ))}

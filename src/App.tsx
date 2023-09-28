@@ -8,7 +8,7 @@ function App() {
 
   return (
     
-      <Layout title={"Geo Form"}>
+      <Layout title={"home"}>
         <Map />
         <div className="flex flex-col justify-center items-center gap-5 m-auto mt-auto mb-auto h-96 p-0">
           <h2>Esto va ser un mapa</h2>
