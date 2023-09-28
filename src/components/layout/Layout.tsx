@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { Navbar } from "../Navbar";
 
 interface Props {
   title: string;
@@ -7,9 +8,11 @@ interface Props {
 
 export const Layout: FC<Props> = ({ children, title }) => {
   return (
-    <div>
-      <p>{title}</p>
-      {children}
-    </div>
+    
+      <div className="bg-slate-200 w-full h-full">
+        <Navbar />
+        {children}
+      </div>
+    
   );
 };
