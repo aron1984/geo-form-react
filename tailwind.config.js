@@ -10,7 +10,12 @@ export default {
     screens: {
       md: "768px",
     },
-    extend: {},
+    extend: {
+      spacing: {
+        '630': '630px',
+        '824': '824px'
+      }
+    },
   },
   plugins: [],
 };

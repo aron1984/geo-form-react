@@ -1,4 +1,4 @@
-export type IPathId = 'home' | 'about' | 'places'
+ export type IPathId = 'home' | 'about' | 'places'
 
 export interface IItems {
     id: IPathId
