@@ -20,10 +20,6 @@ interface IGeoData {
 
 export const Map = () => {
   const { coordinates, setCoordinates } = useGeoStore();
-  const [currentPosition, setCurrentPosition] = useState({
-    latitude: null,
-    longitude: null,
-  });
   const [geoData, setgeoData] = useState([]);
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -54,16 +50,14 @@ export const Map = () => {
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       setCoordinates(position.coords.latitude, position.coords.longitude);
-      setCurrentPosition([position.coords.latitude, position.coords.longitud]);
-
       // const latLong = [coords.latitude, coords.longitude];
       console.log(
         `lat: ${position.coords.latitude}, lon: ${position.coords.longitude}`
       );
     });
   }, []);
-
-  console.log(coordinates.latitude);
+  
+  console.log(coordinates.latitude)
   // const [coordinates, setCoordinate] = useState({
   //   latitude: "",
   //   longitude: "",
@@ -126,8 +120,11 @@ export const Map = () => {
         url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       <LocationMarker />
-
-      <Marker position={positionX} icon={customCurrentIcon} />
+{}
+      <Marker
+        position={positionX}
+        icon={customCurrentIcon}
+      />
 
       {geoData &&
         geoData.map((mark: IGeoData, index) => (
