@@ -87,7 +87,7 @@ export const Form = () => {
       <form
         onSubmit={handleSubmit}
         onReset={() => handleClearForm}
-        id="inputs"
+        id="formPlace"
         className="flex flex-col gap-3 justify-start items-start m-auto w-full md:max-w-3xl mt-2 md:mt-4"
       >
         <div className="flex flex-col md:flex-row gap-3 w-full">

@@ -3,24 +3,24 @@ import { mountStoreDevtool } from "simple-zustand-devtools";
 
 interface GeoState {
   coordinates: {
-    latitude: string;
-    longitude: string;
+    latitude: number;
+    longitude: number;
   };
 
-  setCoordinates: (lat: string, long: string) => void;
+  setCoordinates: (lat: number, long: number) => void;
 }
 
 export const useGeoStore = create<GeoState>()((set) => ({
   coordinates: {
-    latitude: "",
-    longitude: "",
+    latitude: 0,
+    longitude: 0,
   },
   setCoordinates: (lat, long) =>
     set((state) => ({
       ...state.coordinates,
       coordinates: {
-        latitude: lat.toString(),
-        longitude: long.toString(),
+        latitude: lat,
+        longitude: long,
       },
     })),
 }));
