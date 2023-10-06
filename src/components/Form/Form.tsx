@@ -9,7 +9,7 @@ export const Form = () => {
     latitude: coordinates.latitude?.toString(),
     longitude: coordinates.longitude?.toString(),
     name: "",
-    image: null,
+    image: null as File | null,
     description: "",
   });
   const [errorGeneral, setErrorGeneral] = useState(false);
@@ -31,26 +31,34 @@ export const Form = () => {
   console.log(coordinates);
   console.log("formData: ", formData);
 
-  const handleChange = (e: {
-    type: string;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    target: { name: string; value: any; files: any };
-  }) => {
+  const handleChangeFile = (e: React.ChangeEvent<HTMLInputElement | null>) => {
+    const selectedImage = e.target.files && e.target.files[0];
+
+  if (selectedImage) {
+    setFormData({
+      ...formData,
+      image: selectedImage, // Asignar un objeto File.
+    });
+  }
+  };
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     console.log(e.target.name);
-    const { name, value, files } = e.target;
+    const { name, value } = e.target;
 
     if (name === "latitude") {
-      setLatitude(value);
+      setLatitude(parseFloat(value));
     }
 
     if (name === "longitude") {
-      setLongitude(value);
+      setLongitude(parseFloat(value));
     }
 
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: name === "image" ? files[0] : value,
-    }));
+    // setFormData((prevData) => ({
+    //   ...prevData,
+    //   [name]: name === "image" ? files[0] : value,
+    // }));
 
     // Verificar si el campo está vacío en el evento blur
     if (e.type === "blur" && value.trim() === "") {
@@ -168,7 +176,7 @@ export const Form = () => {
             id="image"
             name="image"
             accept="image/*"
-            onChange={handleChange}
+            onChange={handleChangeFile}
           />
         </div>
         <div className="flex flex-col items-start w-full">
