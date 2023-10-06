@@ -58,36 +58,17 @@ export const Map = () => {
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       setMyPosition(position.coords.latitude, position.coords.longitude);
-      // const latLong = [coords.latitude, coords.longitude];
-      console.log(
-        `lat: ${position.coords.latitude}, lon: ${position.coords.longitude}`
-      );
     });
   }, []);
-
-  console.log(myCoordinates.latitude);
-
-  // const [coordinates, setCoordinate] = useState({
-  //   latitude: "",
-  //   longitude: "",
-  // });
-
-  // console.log(coordinates);
-  // console.log(
-  //   "test coordenadas zustand: ",
-  //   coordinates.latitude,
-  //   coordinates.longitude
-  // );
 
   const positionX: LatLngExpression = [-32.18934969088824, -64.47930554177826];
 
   const popup = L.popup();
 
   function LocationMarker() {
-    const [position, setPosition] = useState(null);
+    // const [position, setPosition] = useState(null);
     const map = useMapEvents({
       click(e) {
-        // console.log("mouse event", e.latlng);
         // map.locate()
         const popupOffset = [0.004, 0]; // corre hacia arriba el popup par que no se superponga con el marcador
         popup
@@ -117,11 +98,10 @@ export const Map = () => {
         setCoordinates(e.latlng.lat, e.latlng.lng);
       },
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      locationfound(e: any) {
-        setPosition(e.latlng);
-        map.flyTo(e.latlng, map.getZoom());
-        console.log("position :", position);
-      },
+      // locationfound(e: any) {
+      //   setPosition(e.latlng);
+      //   map.flyTo(e.latlng, map.getZoom()); // funcion que vuela a una posicion
+      // },
     });
 
     return (
