@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import { useGeoStore } from "../../store/store";
+import { saveGeoloc } from "../../../firebase";
 
 export const Form = () => {
+  const isEnabled = false;
   const label = "text-gray-200 text-sm md:text-lg";
 
   const { coordinates, setLatitude, setLongitude } = useGeoStore();
   const [formData, setFormData] = useState({
-    latitude: coordinates.latitude?.toString(),
-    longitude: coordinates.longitude?.toString(),
+    latitude: coordinates.latitude?.toString() || "",
+    longitude: coordinates.longitude?.toString() || "",
     name: "",
     image: null as File | null,
     description: "",
@@ -23,20 +25,20 @@ export const Form = () => {
   useEffect(() => {
     setFormData({
       ...formData,
-      latitude: coordinates.latitude?.toString(),
-      longitude: coordinates.longitude?.toString(),
+      latitude: coordinates.latitude?.toString() || "",
+      longitude: coordinates.longitude?.toString() || "",
     });
   }, [coordinates]);
 
   const handleChangeFile = (e: React.ChangeEvent<HTMLInputElement | null>) => {
     const selectedImage = e.target.files && e.target.files[0];
 
-  if (selectedImage) {
-    setFormData({
-      ...formData,
-      image: selectedImage, // Asignar un objeto File.
-    });
-  }
+    if (selectedImage) {
+      setFormData({
+        ...formData,
+        image: selectedImage, // Asignar un objeto File.
+      });
+    }
   };
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -51,10 +53,19 @@ export const Form = () => {
       setLongitude(parseFloat(value));
     }
 
-    // setFormData((prevData) => ({
-    //   ...prevData,
-    //   [name]: name === "image" ? files[0] : value,
-    // }));
+    if (name === "description") {
+      setFormData({
+        ...formData,
+        description: value,
+      });
+    }
+
+    if (name === "name") {
+      setFormData({
+        ...formData,
+        name: value,
+      });
+    }
 
     // Verificar si el campo está vacío en el evento blur
     if (e.type === "blur" && value.trim() === "") {
@@ -101,8 +112,14 @@ export const Form = () => {
       return;
     }
     // Aquí puedes hacer lo que necesites con los datos del formulario, como enviarlos a un servidor.
-
-    // console.log(formData);
+    const data = {
+      fLat: formData.latitude,
+      fLng: formData.longitude,
+      fNam: formData.name,
+      fDes: formData.description,
+    };
+    saveGeoloc(data);
+    console.log('Enviado')
   };
   return (
     <div className="flex w-full flex-col bg-slate-600 justify-center py-20 px-10 gap-2 absolute top-630 md:top-824">
@@ -162,19 +179,21 @@ export const Form = () => {
           />
           <span className="text-red-500">{errors.name}</span>
         </div>
-        <div className="flex flex-col items-start w-full">
-          <label htmlFor="image" className={label}>
-            Imgaen
-          </label>
-          <input
-            className="w-full h-8 flex items-center"
-            type="file"
-            id="image"
-            name="image"
-            accept="image/*"
-            onChange={handleChangeFile}
-          />
-        </div>
+        {isEnabled && (
+          <div className="flex flex-col items-start w-full">
+            <label htmlFor="image" className={label}>
+              Imgaen
+            </label>
+            <input
+              className="w-full h-8 flex items-center"
+              type="file"
+              id="image"
+              name="image"
+              accept="image/*"
+              onChange={handleChangeFile}
+            />
+          </div>
+        )}
         <div className="flex flex-col items-start w-full">
           <label htmlFor="description" className={label}>
             Descripción
