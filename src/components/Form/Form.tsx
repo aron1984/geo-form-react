@@ -1,17 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useGeoStore } from "../../store/store";
 
 export const Form = () => {
   const label = "text-gray-200 text-sm md:text-lg";
+
+  const { coordinates, setLatitude, setLongitude } = useGeoStore();
   const [formData, setFormData] = useState({
-    latitude: "",
-    longitude: "",
+    latitude: coordinates.latitude?.toString(),
+    longitude: coordinates.longitude?.toString(),
     name: "",
     image: null,
     description: "",
   });
-
   const [errorGeneral, setErrorGeneral] = useState(false);
-
   const [errors, setErrors] = useState({
     latitude: "",
     longitude: "",
@@ -19,12 +20,32 @@ export const Form = () => {
     description: "",
   });
 
+  useEffect(() => {
+    setFormData({
+      ...formData,
+      latitude: coordinates.latitude?.toString(),
+      longitude: coordinates.longitude?.toString(),
+    });
+  }, [coordinates]);
+
+  console.log(coordinates);
+  console.log("formData: ", formData);
+
   const handleChange = (e: {
     type: string;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     target: { name: string; value: any; files: any };
   }) => {
+    console.log(e.target.name);
     const { name, value, files } = e.target;
+
+    if (name === "latitude") {
+      setLatitude(value);
+    }
+
+    if (name === "longitude") {
+      setLongitude(value);
+    }
 
     setFormData((prevData) => ({
       ...prevData,
@@ -100,7 +121,7 @@ export const Form = () => {
               type="text"
               id="latitude"
               name="latitude"
-              value={formData.latitude}
+              value={coordinates.latitude?.toString()}
               onChange={handleChange}
               onBlur={handleChange} // Manejar el evento blur
             />
@@ -115,7 +136,7 @@ export const Form = () => {
               type="text"
               id="longitude"
               name="longitude"
-              value={formData.longitude}
+              value={coordinates.longitude?.toString()}
               onChange={handleChange}
               onBlur={handleChange} // Manejar el evento blur
             />
