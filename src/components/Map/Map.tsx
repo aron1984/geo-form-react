@@ -19,7 +19,8 @@ interface IGeoData {
 }
 
 export const Map = () => {
-  const { coordinates, setCoordinates } = useGeoStore();
+  const { myCoordinates, setMyPosition, setCoordinates, coordinates } =
+    useGeoStore();
   const [geoData, setgeoData] = useState([]);
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -43,13 +44,20 @@ export const Map = () => {
     popupAnchor: [0, -32],
   });
 
+  const customClickIcon = new L.Icon({
+    iconUrl: "img/my-location.png",
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32],
+  });
+
   if (!navigator.geolocation) {
     console.log("location is not supported");
   }
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
-      setCoordinates(position.coords.latitude, position.coords.longitude);
+      setMyPosition(position.coords.latitude, position.coords.longitude);
       // const latLong = [coords.latitude, coords.longitude];
       console.log(
         `lat: ${position.coords.latitude}, lon: ${position.coords.longitude}`
@@ -57,7 +65,8 @@ export const Map = () => {
     });
   }, []);
 
-  console.log(coordinates.latitude);
+  console.log(myCoordinates.latitude);
+
   // const [coordinates, setCoordinate] = useState({
   //   latitude: "",
   //   longitude: "",
@@ -80,8 +89,13 @@ export const Map = () => {
       click(e) {
         // console.log("mouse event", e.latlng);
         // map.locate()
+        const popupOffset = [0.004, 0]; // corre hacia arriba el popup par que no se superponga con el marcador
         popup
-          .setLatLng(e.latlng)
+          // .setLatLng(e.latlng)
+          .setLatLng([
+            e.latlng.lat + popupOffset[0],
+            e.latlng.lng - popupOffset[1],
+          ])
           .setContent(
             ` <div class="flex w-52 justify-between">
                 <div class='flex flex-col w-full gap-2'>
@@ -99,18 +113,27 @@ export const Map = () => {
            `
           )
           .openOn(map);
+
+        setCoordinates(e.latlng.lat, e.latlng.lng);
       },
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       locationfound(e: any) {
         setPosition(e.latlng);
         map.flyTo(e.latlng, map.getZoom());
+        console.log("position :", position);
       },
     });
 
-    return position === null ? null : (
-      <Marker position={positionX} icon={customCurrentIcon}>
-        <Popup>You are here</Popup>
-      </Marker>
+    return (
+      coordinates.latitude !== null &&
+      coordinates.longitude !== null && (
+        <Marker
+          position={[coordinates?.latitude, coordinates?.longitude]}
+          icon={customClickIcon}
+        >
+          <Popup>Hola!</Popup>
+        </Marker>
+      )
     );
   }
 
@@ -128,9 +151,9 @@ export const Map = () => {
         url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       <LocationMarker />
-      {coordinates.latitude !== null && coordinates.longitude !== null && (
+      {myCoordinates.latitude !== null && myCoordinates.longitude !== null && (
         <Marker
-          position={[coordinates.latitude, coordinates.longitude]}
+          position={[myCoordinates.latitude, myCoordinates.longitude]}
           icon={customCurrentIcon}
         >
           <Popup>You are here!</Popup>
