@@ -1,37 +1,21 @@
-import { useState } from 'react'
-import reactLogo from './assets//react.svg'
-import viteLogo from './assets/img/g-logo_myv.svg'
-import './App.css'
-import 'tailwindcss/tailwind.css';
-
+import "./App.css";
+import "tailwindcss/tailwind.css";
+import "leaflet/dist/leaflet.css";
+import { Map } from "./components/Map/Map";
+import { Layout } from "./components/layout";
+import { Form } from "./components/Form";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div className='flex justify-center'>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <Layout title={"home"}>
+      <Map />
+      <div className="flex flex-col justify-center items-center gap-5 m-auto mt-auto mb-auto h-96 p-0">
+        <Form />
+        <h2>Esto va ser un mapa</h2>
+        <img src="img/g-logo_myv.svg" className="w-11 h-11" />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </Layout>
+  );
 }
 
-export default App
+export default App;
