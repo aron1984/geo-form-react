@@ -28,9 +28,6 @@ export const Form = () => {
     });
   }, [coordinates]);
 
-  console.log(coordinates);
-  console.log("formData: ", formData);
-
   const handleChangeFile = (e: React.ChangeEvent<HTMLInputElement | null>) => {
     const selectedImage = e.target.files && e.target.files[0];
 
@@ -44,7 +41,6 @@ export const Form = () => {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    console.log(e.target.name);
     const { name, value } = e.target;
 
     if (name === "latitude") {
@@ -106,7 +102,7 @@ export const Form = () => {
     }
     // Aquí puedes hacer lo que necesites con los datos del formulario, como enviarlos a un servidor.
 
-    console.log(formData);
+    // console.log(formData);
   };
   return (
     <div className="flex w-full flex-col bg-slate-600 justify-center py-20 px-10 gap-2 absolute top-630 md:top-824">
