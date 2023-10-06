@@ -3,8 +3,8 @@ import { mountStoreDevtool } from "simple-zustand-devtools";
 
 interface GeoState {
   coordinates: {
-    latitude: number;
-    longitude: number;
+    latitude: number | null,
+    longitude: number | null
   };
 
   setCoordinates: (lat: number, long: number) => void;
@@ -12,8 +12,8 @@ interface GeoState {
 
 export const useGeoStore = create<GeoState>()((set) => ({
   coordinates: {
-    latitude: 0,
-    longitude: 0,
+    latitude: null,
+    longitude: null,
   },
   setCoordinates: (lat, long) =>
     set((state) => ({

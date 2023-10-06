@@ -56,8 +56,8 @@ export const Map = () => {
       );
     });
   }, []);
-  
-  console.log(coordinates.latitude)
+
+  console.log(coordinates.latitude);
   // const [coordinates, setCoordinate] = useState({
   //   latitude: "",
   //   longitude: "",
@@ -78,17 +78,25 @@ export const Map = () => {
     const [position, setPosition] = useState(null);
     const map = useMapEvents({
       click(e) {
-        console.log("mouse event", e.latlng);
+        // console.log("mouse event", e.latlng);
         // map.locate()
         popup
           .setLatLng(e.latlng)
           .setContent(
-            ` <div class="flex w-72 justify-between">
-              <span>${e.latlng.lat} ${e.latlng.lng} </span>
-              <a href="#formPlace">
-                <img src="/img/check.png" alt="current place" class="w-4" />
-              </a>
-            </div> `
+            ` <div class="flex w-52 justify-between">
+                <div class='flex flex-col w-full gap-2'>
+                  <div class='flex w-full items-center'>
+                    <img src="/img/latitud.png" class='w-5 h-5 mr-1'><span class='pt-1'>${e.latlng.lat}</span>
+                  </div>
+                  <div class='flex w-full items-center'>
+                    <img src="/img/longitud.png" class='w-5 h-5 mr-1'><span class='pt-1'> ${e.latlng.lng}</span>
+                  </div>
+                </div>
+                <a href="#formPlace" class='flex items-center'>
+                  <img src="/img/check.png" alt="current place" class="w-10 h-10 m-auto" />
+                </a>
+              </div>
+           `
           )
           .openOn(map);
       },
@@ -120,11 +128,14 @@ export const Map = () => {
         url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       <LocationMarker />
-{}
-      <Marker
-        position={positionX}
-        icon={customCurrentIcon}
-      />
+      {coordinates.latitude !== null && coordinates.longitude !== null && (
+        <Marker
+          position={[coordinates.latitude, coordinates.longitude]}
+          icon={customCurrentIcon}
+        >
+          <Popup>You are here!</Popup>
+        </Marker>
+      )}
 
       {geoData &&
         geoData.map((mark: IGeoData, index) => (
