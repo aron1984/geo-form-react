@@ -123,7 +123,6 @@ export const Form = () => {
     };
 
     try {
-      throw new Error('{ code: "430", message: "lala" }');
       saveGeoloc(data);
       setShowModalSucces(true);
 
