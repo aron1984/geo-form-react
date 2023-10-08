@@ -4,3 +4,6 @@ export interface IItems {
     id: IPathId
     path: string
 }[]
+
+
+export type IModalType = "success" | "error" | "alert";
