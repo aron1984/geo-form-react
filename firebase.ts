@@ -33,8 +33,8 @@ const db = getFirestore(app);
 
 // function for save form into the db
 interface IGeoloc {
-  fLat: number;
-  fLng: number;
+  fLat: string;
+  fLng: string;
   fNam: string;
   fDes: string;
 }
