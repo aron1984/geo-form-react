@@ -142,7 +142,7 @@ export const Form = () => {
   return (
     <>
       <div className="flex w-full flex-col bg-slate-600 justify-center py-20 px-10 gap-2 absolute top-630 md:top-824">
-        <h3 className="font-bold text-base md:text-xl text-gray-100">
+        <h3 className="font-bold text-base md:text-3xl text-gray-100">
           Formulario
         </h3>
         <form
@@ -218,7 +218,7 @@ export const Form = () => {
               Descripción
             </label>
             <textarea
-              className="w-full h-20 md:h-40"
+              className="w-full h-20 md:h-40 p-2"
               id="description"
               name="description"
               value={formData.description}
