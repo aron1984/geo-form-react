@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useGeoStore } from "../../store/store";
 import { saveGeoloc } from "../../../firebase";
 import Modal from "../Modal/Modal";
@@ -7,7 +7,13 @@ export const Form = () => {
   const isEnabled = false;
   const label = "text-gray-200 text-sm md:text-lg";
 
-  const { coordinates, setLatitude, setLongitude } = useGeoStore();
+  const {
+    coordinates,
+    setLatitude,
+    setLongitude,
+    setShowLoadingSpiner,
+  } = useGeoStore();
+
   const [formData, setFormData] = useState({
     latitude: coordinates.latitude?.toString() || "",
     longitude: coordinates.longitude?.toString() || "",
@@ -25,14 +31,6 @@ export const Form = () => {
 
   const [showModalSucces, setShowModalSucces] = useState(false);
   const [showModalError, setShowModalError] = useState(false);
-
-  useEffect(() => {
-    setFormData({
-      ...formData,
-      latitude: coordinates.latitude?.toString() || "",
-      longitude: coordinates.longitude?.toString() || "",
-    });
-  }, [coordinates]);
 
   const handleChangeFile = (e: React.ChangeEvent<HTMLInputElement | null>) => {
     const selectedImage = e.target.files && e.target.files[0];
@@ -107,14 +105,20 @@ export const Form = () => {
     });
   };
 
-  const handleSubmit = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
+  const onHandleSubmit = () => {
+    setShowLoadingSpiner(true);
+    setTimeout(() => {
+      handleSubmit();
+    }, 2000);
+  };
+
+  const handleSubmit = () => {
+    // e.preventDefault();
 
     if (Object.values(errors).some((error) => error !== "")) {
       setErrorGeneral(true);
       return;
     }
-    // Aquí puedes hacer lo que necesites con los datos del formulario, como enviarlos a un servidor.
     const data = {
       fLat: formData.latitude,
       fLng: formData.longitude,
@@ -124,7 +128,6 @@ export const Form = () => {
 
     try {
       saveGeoloc(data);
-      setShowModalSucces(true);
 
       setFormData({
         latitude: "",
@@ -133,11 +136,23 @@ export const Form = () => {
         image: null,
         description: "",
       });
+      setShowModalSucces(true);
+      setShowLoadingSpiner(false);
     } catch (error) {
       console.warn(error);
+      setShowLoadingSpiner(false);
       setShowModalError(true);
     }
   };
+
+  useEffect(() => {
+    setFormData({
+      ...formData,
+      latitude: coordinates.latitude?.toString() || "",
+      longitude: coordinates.longitude?.toString() || "",
+    });
+  }, [coordinates.latitude]);
+
   return (
     <>
       <div className="flex w-full flex-col bg-slate-600 justify-center py-20 px-10 gap-2 absolute top-630 md:top-824">
@@ -145,8 +160,8 @@ export const Form = () => {
           Formulario
         </h3>
         <form
-          onSubmit={handleSubmit}
-          onReset={() => handleClearForm}
+          // onSubmit={(e) => handleSubmit(e)}
+          onReset={() => handleClearForm()}
           id="formPlace"
           className="flex flex-col gap-3 justify-start items-start m-auto w-full md:max-w-3xl mt-2 md:mt-4"
         >
@@ -160,7 +175,7 @@ export const Form = () => {
                 type="text"
                 id="latitude"
                 name="latitude"
-                value={coordinates.latitude?.toString()}
+                value={coordinates.latitude === 0 ? '' : coordinates.latitude?.toString()}
                 onChange={handleChange}
                 onBlur={handleChange} // Manejar el evento blur
               />
@@ -175,7 +190,7 @@ export const Form = () => {
                 type="text"
                 id="longitude"
                 name="longitude"
-                value={coordinates.longitude?.toString()}
+                value={coordinates.longitude === 0 ? '' : coordinates.longitude?.toString()}
                 onChange={handleChange}
                 onBlur={handleChange} // Manejar el evento blur
               />
@@ -240,8 +255,9 @@ export const Form = () => {
                   ? "flex w-1/2 bg-gray-400 text-white justify-center items-center h-10 mt-4"
                   : "flex w-1/2 bg-cyan-400 text-white justify-center items-center h-10 mt-4"
               }
-              type="submit"
+              type="button"
               disabled={isSubmitDisabled}
+              onClick={() => onHandleSubmit()}
             >
               Guardar
             </button>
@@ -277,7 +293,7 @@ export const Form = () => {
         <Modal
           onPrimaryAction={() => {
             setShowModalError(false);
-            handleClearForm()
+            handleClearForm();
           }}
           data={{
             title: "Algo salió mal",
