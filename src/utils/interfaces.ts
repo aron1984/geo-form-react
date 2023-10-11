@@ -7,3 +7,10 @@ export interface IItems {
 
 
 export type IModalType = "success" | "error" | "alert";
+
+export interface IGeoData {
+    name: string
+    description: string
+    lat: number
+    lng: number
+}
