@@ -4,8 +4,11 @@ import "leaflet/dist/leaflet.css";
 import { Map } from "./components/Map/Map";
 import { Layout } from "./components/layout";
 import { Form } from "./components/Form";
+import Spinner from "./components/Spinner/Spinner";
+import { useGeoStore } from "./store/store";
 
 function App() {
+  const { loadingSpinner } = useGeoStore();
   return (
     <Layout title={"home"}>
       <Map />
@@ -13,6 +16,8 @@ function App() {
         <Form />
         <img src="img/g-logo_myv.svg" className="w-11 h-11" />
       </div>
+
+      {loadingSpinner && <Spinner data={"Loadings"}  />}
     </Layout>
   );
 }
