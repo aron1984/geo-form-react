@@ -15,8 +15,8 @@ export const Layout: FC<Props> = ({ children, title, subtitle }) => {
       <Navbar items={itemsNavbar} />
       {subtitle && (
         <div className="relative top-10 md:top-20">
-          <div className="flex items-center justify-start p-3 border-b-2 border-gray-800">
-            <h1 className="text-gray-800 text-xl font-bold">{subtitle}</h1>
+          <div className="flex items-center justify-start p-1 md:p-3 border-b-2 border-gray-800">
+            <h1 className="text-gray-800 text-sm md:text-xl font-bold">{subtitle}</h1>
           </div>
         </div>
       )}
