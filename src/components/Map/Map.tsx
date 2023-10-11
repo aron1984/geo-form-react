@@ -58,6 +58,7 @@ export const Map = () => {
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       setMyPosition(position.coords.latitude, position.coords.longitude);
+      // console.log('Mi posicion actual: ',position.coords.latitude, position.coords.longitude) // puede dar una localizacion erronea
     });
   }, []);
 
@@ -133,7 +134,7 @@ export const Map = () => {
       <LocationMarker />
       {myCoordinates.latitude !== null && myCoordinates.longitude !== null && (
         <Marker
-          position={[myCoordinates.latitude, myCoordinates.longitude]}
+          position={[myCoordinates?.latitude, myCoordinates?.longitude]}
           icon={customCurrentIcon}
         >
           <Popup>You are here!</Popup>
