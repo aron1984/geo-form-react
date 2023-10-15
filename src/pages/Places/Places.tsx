@@ -23,7 +23,7 @@ export const Places = () => {
 
   return (
     <Layout title="places" subtitle="Mis lugares">
-      <div className="flex absolute top-40">
+      <div className="flex absolute top-24 md:top-40 w-full justify-center items-start">
         <ListLocation data={locations}/>
        
       </div>
