@@ -8,8 +8,8 @@ interface GeoState {
   };
 
   myCoordinates: {
-    latitude: number;
-    longitude: number;
+    latitude: number | null;
+    longitude: number | null;
   };
 
   loadingSpinner: boolean;
@@ -57,8 +57,8 @@ export const useGeoStore = create<GeoState>()((set) => ({
       },
     })),
   myCoordinates: {
-    latitude: 0,
-    longitude: 0,
+    latitude: null,
+    longitude: null,
   },
   setMyPosition: (lat, long) =>
     set((state) => ({
