@@ -7,9 +7,11 @@ interface ILoc {
 
 export const LocItem: FC<ILoc> = ({ item }) => {
   return (
-    <div className="flex w-full h-28 bg-slate-100 p-2 md:p-3 my-2 md:m-3">
-      <div className="flex flex-col items-start w-4/5">
-        <div className="h-8 flex items-end w-full">
+    <div className="flex w-full h-28 bg-slate-100 py-2 my-2 md:m-3 shadow-md">
+      <div className="flex flex-col items-start w-5/6 px-2 md:px-4">
+        <div
+          className="h-8 flex items-end w-full mb-2"
+        >
           <h5 className="text-sm m-0 font-medium">{item.name}</h5>
         </div>
         <div className="flex flex-row w-full justify-start items-center gap-1">
@@ -34,7 +36,7 @@ export const LocItem: FC<ILoc> = ({ item }) => {
           <p>{item.description}</p>
         </div>
       </div>
-      <div className="flex flex-col items-end justify-center w-1/5 gap-2">
+      <div className="flex flex-col md:flex-row md:items-center items-center justify-center w-1/6 gap-2 border-l-2">
         <img className="w-8 h-8" src="/img/edit.png" alt="modificar" />
         <img className="w-8 h-8" src="/img/delete.png" alt="eliminar" />
       </div>
