@@ -13,7 +13,6 @@ export const ListLocation: FC<IData> = ({
   deleteLocation,
   // modifyLocation,
 }) => {
-  console.log(data);
   return (
     <div className="flex flex-row w-full justify-center">
       <ul className="flex flex-col w-full p-2 md:w-824 m-auto">

@@ -1,10 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import {
-  DocumentData,
   FieldValue,
-  FirestoreError,
-  QuerySnapshot,
   addDoc,
   collection,
   deleteDoc,
@@ -19,10 +16,10 @@ import {
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
-  authDomain: import.meta.env.VITE_AUTH_DOMAIN, 
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
   projectId: import.meta.env.VITE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_STORAGE_BUCKET, 
-  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID, 
+  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
   appId: import.meta.env.VITE_APP_ID,
 };
 
@@ -52,18 +49,16 @@ const getGeolocs = async () => {
   const queryDB = query(collection(db, "geoloc"));
   const docs = await getDocs(queryDB);
   const allRegisters: unknown[] = [];
-  docs.forEach((doc: { data: () => unknown }) => allRegisters.push(doc.data()));
+  docs.forEach((doc: { data: () => unknown }) => {
+    allRegisters.push(doc.data());
+  });
 
   return allRegisters;
 };
 
-const onGetGeoloc = (callback: {
-  next?:
-    | ((snapshot: QuerySnapshot<DocumentData, DocumentData>) => void)
-    | undefined;
-  error?: ((error: FirestoreError) => void) | undefined;
-  complete?: (() => void) | undefined;
-}) => onSnapshot(collection(db, "geoloc"), callback);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const onGetGeoloc = (callback: any) =>
+  onSnapshot(collection(db, "geoloc"), callback);
 
 const deleteGeoloc = (id: string) => deleteDoc(doc(db, "geoloc", id));
 
@@ -74,8 +69,10 @@ const getGeoloc = async (id: string) => {
   return geolocA;
 };
 
-const updateGeoloc = (id: string, newFields: { [x: string]: FieldValue | Partial<unknown> | undefined; }) =>
-  updateDoc(doc(db, "geoloc", id), newFields);
+const updateGeoloc = (
+  id: string,
+  newFields: { [x: string]: FieldValue | Partial<unknown> | undefined }
+) => updateDoc(doc(db, "geoloc", id), newFields);
 
 export {
   app,
