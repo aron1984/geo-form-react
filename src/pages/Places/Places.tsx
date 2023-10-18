@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { Layout } from "../../components/layout";
 
-import { onGetGeoloc, deleteGeoloc } from "../../../firebase";
-import { IGeoData } from "../../utils/interfaces";
+import { onGetGeoloc, deleteGeoloc, getGeolocs } from "../../../firebase";
+import { DocumentWithId, IGeoData } from "../../utils/interfaces";
 import { ListLocation } from "../../components/ListLocation";
 import { useGeoStore } from "../../store/store";
 import Spinner from "../../components/Spinner/Spinner";
 import Modal from "../../components/Modal/Modal";
+
+
 
 export const Places = () => {
   const [locations, setLocations] = useState<unknown[] | IGeoData[] | null>([]);
@@ -16,24 +18,18 @@ export const Places = () => {
 
   useEffect(() => {
     async function fetchLocations() {
+      await getGeolocs();
       try {
-        // const data = await getGeolocs();
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        onGetGeoloc((querySnapshot: { data: () => any }[]) => {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          const locations:
-            | any[]
-            | ((
-                prevState: unknown[] | IGeoData[] | null
-              ) => unknown[] | IGeoData[] | null)
-            | null = [];
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          querySnapshot.forEach((doc: { data: () => any }) => {
+        onGetGeoloc((querySnapshot: DocumentWithId[]) => {
+          const locations: IGeoData[] = [];
+          querySnapshot.forEach((doc: DocumentWithId) => {
             const geoloc = doc.data();
-            const locationWithId = { ...geoloc, id: doc.id };
+            const locationWithId: IGeoData = { ...geoloc, id: doc.id };
             locations.push(locationWithId);
           });
-          setLocations(locations);
+
+            setLocations(locations);
+
         });
       } catch (error) {
         console.error("Error al obtener las localizaciones:", error);
@@ -48,10 +44,10 @@ export const Places = () => {
     setTimeout(() => {
       try {
         deleteGeoloc(id);
-        setShowModalSucces(true)
+        setShowModalSucces(true);
       } catch (error) {
         console.error("No se pudo eliminar la localización");
-        setShowModalError(true)
+        setShowModalError(true);
       } finally {
         setShowLoadingSpiner(false);
       }

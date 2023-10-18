@@ -284,7 +284,6 @@ export const Form = () => {
             textButton: "Entendido",
             descripton: "Guardaste la localización con éxito",
             icon: undefined,
-            textSecondaryButton: "Cancelar",
             type: "success",
           }}
         />
