@@ -58,7 +58,7 @@ const Modal: React.FC<IModal> = ({
             onClick={onPrimaryAction}
             className={`${backgroundType(
               data.type
-            )} text-white px-4 py-2 rounded-md border-gre w-80 ${!data.textSecondaryButton ? 'md:w-80' : 'md:w-40'}`}
+            )} text-white px-4 py-2 rounded-md border-gre w-72 ${!data.textSecondaryButton ? 'md:w-80' : 'md:w-40'}`}
           >
             {data.textButton}
           </button>
@@ -68,7 +68,7 @@ const Modal: React.FC<IModal> = ({
               onClick={onSecondaryAction}
               className={`bg-white ${customBorder(
                 data.type
-              )} border-2  px-4 py-2 rounded-md hover:bg-blue-600 md:w-40`}
+              )} border-2  px-4 py-2 rounded-md hover:bg-blue-600 w-72 md:w-40`}
             >
               {data.textSecondaryButton}
             </button>

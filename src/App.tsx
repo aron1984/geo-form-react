@@ -17,7 +17,7 @@ function App() {
         <img src="img/g-logo_myv.svg" className="w-11 h-11" />
       </div>
 
-      {loadingSpinner && <Spinner data={"Loadings"}  />}
+      {loadingSpinner && <Spinner color="save" data={"Loadings"}  />}
     </Layout>
   );
 }
