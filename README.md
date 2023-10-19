@@ -1,6 +1,5 @@
 <div id="top"></div>
 
-
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
@@ -16,6 +15,7 @@
 </div>
 
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
 
 This project started as an alternative to address the problem we encountered. It allowed me to merge my skills and expertise in cartography, geography, and design.
@@ -30,25 +30,25 @@ You can submit geolocations, names, and descriptions by default. It connects to 
 
 Finally, it streamlines the process of handling field information, eliminating the need for manual place searching on the map.
 
-
 ### Built With
 
 This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgments section. Here are a few examples:
 
-* [React](https://reactjs.org/)
-* [Tailwindcss](https://tailwindcss.com/)
-* [Leaflet](https://leafletjs.com/)
-
-
+- [Vite](https://vitejs.dev/)
+- [React](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwindcss](https://tailwindcss.com/)
+- [Leaflet](https://leafletjs.com/)
+- [Firebase](https://firebase.google.com/?hl=es)
+- [Vercel](https://vercel.com/)
 
 <!-- GETTING STARTED -->
+
 ## Getting Started
 
 Below, I share a series of steps and features for you to install the project. Feel free to modify and enhance this code. Assuming you already have a Firebase project, these steps should be sufficient.
 
-
 ### Installation
-
 
 1. Into of you firebase account, search "config proyect" (SDK) and copy data.
    ```sh
@@ -67,71 +67,68 @@ Below, I share a series of steps and features for you to install the project. Fe
    ```
 3. Set the firebase.js into, with the info than copy at the top
    ```sh
-    const firebaseConfig = {
-    apiKey: "xxxxxxxxxxxxxxxx",
-    authDomain: "xxxxxxxxxxxxxxxx",
-    projectId: "xxxxxxxxxxxxxxxx",
-    storageBucket: "xxxxxxxxxxxxxxxx",
-    messagingSenderId: "xxxxxxxxxxxxxxxx",
-    appId: "xxxxxxxxxxxxxxxx"
-    };
+   const firebaseConfig = {
+      apiKey: import.meta.env.VITE_API_KEY,
+      authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+      projectId: import.meta.env.VITE_PROJECT_ID,
+      storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+      messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+      appId: import.meta.env.VITE_APP_ID,
+   };
    ```
-4. In VS CODE install `Live Server`. Tool very good
-  
+4. In Vercel setings => Environment variables set the top variables.
 
-
-
+5. In file .env, configure the variables
+   ```sh
+   VITE_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+   VITE_PROJECT_ID=XXXXXXXXXXXXXXXXXXXXXXX
+   VITE_AUTH_DOMAIN=XXXXXXXXXXXXXXX.firebaseapp.com
+   VITE_STORAGE_BUCKET=XXXXXXXXXXXXXXXXXXXXXXX
+   VITE_MESSAGING_SENDER_ID=XXXXXXXXXXXX
+   VITE_APP_ID=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+   ```
 
 <!-- USAGE EXAMPLES -->
+
 ## Usage
 
-Here I'll paste some screenshots
-
-
-
+<img src="https://res.cloudinary.com/dzvvin1g2/image/upload/v1697684344/app-location/geoform_1_punpax.jpg" height='300' />
+<img src="https://res.cloudinary.com/dzvvin1g2/image/upload/v1697684344/app-location/geoform_2_mkunhy.jpg" height='300' />
+<img src="https://res.cloudinary.com/dzvvin1g2/image/upload/v1697684344/app-location/geoform_3_gva5lv.jpg" height='300' />
+<img src="https://res.cloudinary.com/dzvvin1g2/image/upload/v1697684344/app-location/geoform_4_ldpsc6.jpg" height='300' />
+<img src="https://res.cloudinary.com/dzvvin1g2/image/upload/v1697684344/app-location/geoform_5_te2kag.jpg" height='300' />
 
 <!-- ROADMAP -->
+
 ## Roadmap
 
 - [x] Add map
-- [x] Add geolocate 
+- [x] Add geolocate
 - [x] Add form & alerts
 - [x] Add light & dark mode
+- [x] Add Page List
 - [ ] Add browser
 - [ ] Add layers map
-- [ ] Add Page List
 - [ ] Add Login
 - [ ] Add form state off line
 - [ ] Multi-language Support
-    - [ ] English
-    - [x] Spanish
-
-
+  - [ ] English
+  - [x] Spanish
 
 <!-- CONTRIBUTING -->
 
-
-
-
 <!-- LICENSE -->
 
+## Demo
 
-
+Page demo - [https://geo-form-react.vercel.app/](https://geo-form-react.vercel.app/)
 
 <!-- CONTACT -->
+
 ## Contact
 
-Your Name - [linkedin](https://twitter.com/your_username) - ronconialejandro@gmail.com
+Your Name - [linkedin](https://www.linkedin.com/in/alejandro-ronconi/) - ronconialejandro@gmail.com
 
-
-
-<img src="src/assets/img/g-myvsolutions.svg" height="60">
-
-Project Link: 
+<img src="src/assets/img/g-myvsolutions.svg" height="40">
 
 <p align="right"><a href="#top">TO TOP</a></p>
-
-
-
-
-
