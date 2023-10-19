@@ -8,8 +8,6 @@ import { useGeoStore } from "../../store/store";
 import Spinner from "../../components/Spinner/Spinner";
 import Modal from "../../components/Modal/Modal";
 
-
-
 export const Places = () => {
   const [locations, setLocations] = useState<unknown[] | IGeoData[] | null>([]);
   const { setShowLoadingSpiner, loadingSpinner } = useGeoStore();
@@ -28,8 +26,7 @@ export const Places = () => {
             locations.push(locationWithId);
           });
 
-            setLocations(locations);
-
+          setLocations(locations);
         });
       } catch (error) {
         console.error("Error al obtener las localizaciones:", error);
@@ -54,13 +51,36 @@ export const Places = () => {
     }, 1000);
   };
 
+  const modifyLocation = (id: string) => {
+    setShowLoadingSpiner(true);
+    setTimeout(() => {
+      try {
+        console.log("Localizacion a editar", id);
+        // REFACTOR:
+        /**
+         * [] Levar la logia de useState del formulario, al estado global. Asi podemos rellenar el form desde este componente.
+         * [] Tiene que rellenar el formulario con los datos de la db con ese id
+         * [] Tiene que redirigir al home a ese punto en el mapa, y debe ver en formulario los datos a editar
+         * [] Esta accitiene que setear un estado que diga que es un dato a actualizarse, y que en ese caso haga update sobre ese id
+         * [] Tiene que interpetar este estado para hacer save o update.
+         */
+        window.location.href = "/";
+      } catch (error) {
+        console.error("No se pudo editar información de la localización");
+        setShowModalError(true);
+      } finally {
+        setShowLoadingSpiner(false);
+      }
+    }, 1000);
+  };
+
   return (
     <Layout title="places" subtitle="Mis lugares">
       <div className="flex absolute top-24 md:top-40 w-full justify-center items-start">
         <ListLocation
           data={locations}
           deleteLocation={deleteLocation}
-          modifyLocation={() => console.log()}
+          modifyLocation={modifyLocation}
         />
       </div>
       {loadingSpinner && <Spinner data={"Loadings"} color="delete" />}

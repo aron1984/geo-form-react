@@ -8,7 +8,7 @@ interface ILoc {
   onDelete: () => void;
 }
 
-export const LocItem: FC<ILoc> = ({ item, onDelete}) => {
+export const LocItem: FC<ILoc> = ({ item, onDelete, onModify}) => {
   return (
     <div
       className="flex w-full h-28 bg-slate-100 py-2 my-2 md:m-3 shadow-md"
@@ -44,7 +44,7 @@ export const LocItem: FC<ILoc> = ({ item, onDelete}) => {
           className="w-8 h-8 cursor-pointer"
           src="/img/edit.png"
           alt="modificar"
-          onClick={(e) => console.log(e.target)}
+          onClick={onModify}
         />
         <img
           className="w-8 h-8 cursor-pointer"

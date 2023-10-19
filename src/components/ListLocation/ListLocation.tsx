@@ -5,13 +5,13 @@ import { LocItem } from "./LocItem";
 interface IData {
   data: IGeoData[] | unknown[] | null;
   deleteLocation: (id: string) => void;
-  modifyLocation: () => void;
+  modifyLocation: (id: string) => void;
 }
 
 export const ListLocation: FC<IData> = ({
   data,
   deleteLocation,
-  // modifyLocation,
+  modifyLocation,
 }) => {
   return (
     <div className="flex flex-row w-full justify-center">
@@ -24,7 +24,7 @@ export const ListLocation: FC<IData> = ({
               key={location.id}
               item={location}
               onDelete={() => deleteLocation(location.id)}
-              onModify={() => {}}
+              onModify={() => modifyLocation(location.id)}
             />
           ))}
       </ul>
