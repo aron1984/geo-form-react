@@ -19,8 +19,8 @@ export const Form = () => {
   } = useGeoStore();
 
   const [formData, setFormData] = useState({
-    latitude: coordinates.latitude?.toString() || "",
-    longitude: coordinates.longitude?.toString() || "",
+    latitude: coordinates?.latitude || "",
+    longitude: coordinates?.longitude || "",
     name: "",
     image: null as File | null,
     description: "",
@@ -53,11 +53,17 @@ export const Form = () => {
     const { name, value } = e.target;
 
     if (name === "latitude") {
-      setLatitude(parseFloat(value));
+      if(value === '-') {
+       return setLatitude('')
+      }
+      setLatitude(value);
     }
 
     if (name === "longitude") {
-      setLongitude(parseFloat(value));
+      if(value === '-') {
+        return setLongitude('')
+       }
+      setLongitude(value);
     }
 
     if (name === "description") {
@@ -75,7 +81,7 @@ export const Form = () => {
     }
 
     // Verificar si el campo está vacío en el evento blur
-    if (e.type === "blur" && value.trim() === "") {
+    if (e.type === "blur" && value.length < 1) {
       setErrors((prevErrors) => ({
         ...prevErrors,
         [name]: "Este campo no puede estar vacío",
@@ -158,10 +164,10 @@ export const Form = () => {
   useEffect(() => {
     setFormData({
       ...formData,
-      latitude: coordinates.latitude?.toString() || "",
-      longitude: coordinates.longitude?.toString() || "",
+      latitude: coordinates?.latitude || "",
+      longitude: coordinates?.longitude || "",
     });
-  }, [coordinates.latitude]);
+  }, [coordinates?.latitude]);
 
   // console.log("formDataStore", formDataStore);
   // console.log("selected doc ID from places", selectedDocId);
@@ -189,9 +195,7 @@ export const Form = () => {
                 id="latitude"
                 name="latitude"
                 value={
-                  coordinates.latitude === 0
-                    ? ""
-                    : coordinates.latitude?.toString()
+                  coordinates?.latitude || ''
                 }
                 onChange={handleChange}
                 onBlur={handleChange} // Manejar el evento blur
@@ -208,9 +212,9 @@ export const Form = () => {
                 id="longitude"
                 name="longitude"
                 value={
-                  coordinates.longitude === 0
+                  coordinates.longitude === ''
                     ? ""
-                    : coordinates.longitude?.toString()
+                    : coordinates.longitude
                 }
                 onChange={handleChange}
                 onBlur={handleChange} // Manejar el evento blur
