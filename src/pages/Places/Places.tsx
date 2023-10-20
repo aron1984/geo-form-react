@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Layout } from "../../components/layout";
+import { useNavigate } from "react-router";
 
 import { onGetGeoloc, deleteGeoloc, getGeolocs } from "../../../firebase";
 import { DocumentWithId, IGeoData } from "../../utils/interfaces";
@@ -9,10 +10,13 @@ import Spinner from "../../components/Spinner/Spinner";
 import Modal from "../../components/Modal/Modal";
 
 export const Places = () => {
+  const { setShowLoadingSpiner, loadingSpinner, setSelectedDocId } =
+    useGeoStore();
   const [locations, setLocations] = useState<unknown[] | IGeoData[] | null>([]);
-  const { setShowLoadingSpiner, loadingSpinner } = useGeoStore();
   const [showModalSucces, setShowModalSucces] = useState(false);
   const [showModalError, setShowModalError] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchLocations() {
@@ -52,19 +56,20 @@ export const Places = () => {
   };
 
   const modifyLocation = (id: string) => {
+    setSelectedDocId(id);
     setShowLoadingSpiner(true);
     setTimeout(() => {
       try {
-        console.log("Localizacion a editar", id);
         // REFACTOR:
         /**
-         * [] Levar la logia de useState del formulario, al estado global. Asi podemos rellenar el form desde este componente.
-         * [] Tiene que rellenar el formulario con los datos de la db con ese id
-         * [] Tiene que redirigir al home a ese punto en el mapa, y debe ver en formulario los datos a editar
-         * [] Esta accitiene que setear un estado que diga que es un dato a actualizarse, y que en ese caso haga update sobre ese id
-         * [] Tiene que interpetar este estado para hacer save o update.
+         * [*] Agregar al store selectedDocId y el seter.
+         * [*] Tiene que interpetar este estado para hacer save o update.
+         * [*] Esta accitiene que setear un estado que diga que es un dato a actualizarse, y que en ese caso haga update sobre ese id
+         * [ ] Levar la logia de useState del formulario, al estado global. Asi podemos rellenar el form desde este componente.
+         * [ ] Tiene que redirigir al home a ese punto en el mapa, y debe ver en formulario los datos a editar
+         * [ ] Solucionar crash cuando hacemos focus o onblur en el input de lat o lng y no hay datos.
          */
-        window.location.href = "/";
+        navigate("/");
       } catch (error) {
         console.error("No se pudo editar información de la localización");
         setShowModalError(true);

@@ -12,9 +12,10 @@ export const Form = () => {
     setLatitude,
     setLongitude,
     setShowLoadingSpiner,
-    formDataStore,
+    // formDataStore, // REFACTOR: VER QUEHACEMOS CON ESTE DATO.. era para sacar el useState y usa este 
     // setFormDataStore,
     selectedDocId,
+    setSelectedDocId,
   } = useGeoStore();
 
   const [formData, setFormData] = useState({
@@ -133,12 +134,10 @@ export const Form = () => {
     try {
       // setFormDataStore(data);
       if (selectedDocId.length > 0) {
-        console.log("entro a actualizar", selectedDocId);
         updateGeoloc(selectedDocId, data);
         setShowModalUpdateSucces(true);
       } else {
         saveGeoloc(data);
-        console.log("Hizo un save", selectedDocId);
         setFormData({
           latitude: "",
           longitude: "",
@@ -164,8 +163,8 @@ export const Form = () => {
     });
   }, [coordinates.latitude]);
 
-  console.log("formDataStore", formDataStore);
-  console.log("selected doc ID from places", selectedDocId);
+  // console.log("formDataStore", formDataStore);
+  // console.log("selected doc ID from places", selectedDocId);
 
   return (
     <>
@@ -330,13 +329,13 @@ export const Form = () => {
         <Modal
           onPrimaryAction={() => {
             setShowModalUpdateSucces(false);
+            setSelectedDocId("");
             handleClearForm();
           }}
           data={{
             title: "Actualizaste",
             textButton: "Entendido",
-            descripton:
-              "Actualizaste el localización con éxito.",
+            descripton: "Actualizaste el localización con éxito.",
             icon: undefined,
             type: "success",
           }}
