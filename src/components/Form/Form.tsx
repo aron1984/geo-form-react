@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useGeoStore } from "../../store/store";
-import { saveGeoloc } from "../../../firebase";
+import { saveGeoloc, updateGeoloc } from "../../../firebase";
 import Modal from "../Modal/Modal";
 
 export const Form = () => {
@@ -12,6 +12,9 @@ export const Form = () => {
     setLatitude,
     setLongitude,
     setShowLoadingSpiner,
+    formDataStore,
+    // setFormDataStore,
+    selectedDocId,
   } = useGeoStore();
 
   const [formData, setFormData] = useState({
@@ -31,6 +34,7 @@ export const Form = () => {
 
   const [showModalSucces, setShowModalSucces] = useState(false);
   const [showModalError, setShowModalError] = useState(false);
+  const [showModalUpdateSucces, setShowModalUpdateSucces] = useState(false);
 
   const handleChangeFile = (e: React.ChangeEvent<HTMLInputElement | null>) => {
     const selectedImage = e.target.files && e.target.files[0];
@@ -127,16 +131,23 @@ export const Form = () => {
     };
 
     try {
-      saveGeoloc(data);
-
-      setFormData({
-        latitude: "",
-        longitude: "",
-        name: "",
-        image: null,
-        description: "",
-      });
-      setShowModalSucces(true);
+      // setFormDataStore(data);
+      if (selectedDocId.length > 0) {
+        console.log("entro a actualizar", selectedDocId);
+        updateGeoloc(selectedDocId, data);
+        setShowModalUpdateSucces(true);
+      } else {
+        saveGeoloc(data);
+        console.log("Hizo un save", selectedDocId);
+        setFormData({
+          latitude: "",
+          longitude: "",
+          name: "",
+          image: null,
+          description: "",
+        });
+        setShowModalSucces(true);
+      }
       setShowLoadingSpiner(false);
     } catch (error) {
       console.warn(error);
@@ -152,6 +163,9 @@ export const Form = () => {
       longitude: coordinates.longitude?.toString() || "",
     });
   }, [coordinates.latitude]);
+
+  console.log("formDataStore", formDataStore);
+  console.log("selected doc ID from places", selectedDocId);
 
   return (
     <>
@@ -175,7 +189,11 @@ export const Form = () => {
                 type="text"
                 id="latitude"
                 name="latitude"
-                value={coordinates.latitude === 0 ? '' : coordinates.latitude?.toString()}
+                value={
+                  coordinates.latitude === 0
+                    ? ""
+                    : coordinates.latitude?.toString()
+                }
                 onChange={handleChange}
                 onBlur={handleChange} // Manejar el evento blur
               />
@@ -190,7 +208,11 @@ export const Form = () => {
                 type="text"
                 id="longitude"
                 name="longitude"
-                value={coordinates.longitude === 0 ? '' : coordinates.longitude?.toString()}
+                value={
+                  coordinates.longitude === 0
+                    ? ""
+                    : coordinates.longitude?.toString()
+                }
                 onChange={handleChange}
                 onBlur={handleChange} // Manejar el evento blur
               />
@@ -301,6 +323,22 @@ export const Form = () => {
               "No se pudo guardar la localización. Volvé a intentarlo más tarde",
             icon: undefined,
             type: "error",
+          }}
+        />
+      )}
+      {showModalUpdateSucces && (
+        <Modal
+          onPrimaryAction={() => {
+            setShowModalUpdateSucces(false);
+            handleClearForm();
+          }}
+          data={{
+            title: "Actualizaste",
+            textButton: "Entendido",
+            descripton:
+              "Actualizaste el localización con éxito.",
+            icon: undefined,
+            type: "success",
           }}
         />
       )}

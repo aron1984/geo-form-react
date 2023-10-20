@@ -24,7 +24,7 @@ export const ListLocation: FC<IData> = ({
               key={location.id}
               item={location}
               onDelete={() => deleteLocation(location.id)}
-              onModify={() => modifyLocation(location.id)}
+              onModify={modifyLocation}
             />
           ))}
       </ul>
