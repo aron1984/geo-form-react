@@ -4,8 +4,8 @@ import { IDataFirebase } from "../utils/interfaces";
 
 interface GeoState {
   coordinates: {
-    latitude: number;
-    longitude: number;
+    latitude: string;
+    longitude: string;
   };
 
   myCoordinates: {
@@ -29,17 +29,17 @@ interface GeoState {
   setFormDataStore: (data: IDataFirebase) => void;
 
   setShowLoadingSpiner: (status: boolean) => void;
-  setCoordinates: (lat: number, long: number) => void;
-  setLatitude: (lat: number) => void;
-  setLongitude: (long: number) => void;
+  setCoordinates: (lat: string, long: string) => void;
+  setLatitude: (lat: string) => void;
+  setLongitude: (long: string) => void;
 
   setMyPosition: (lat: number, long: number) => void;
 }
 
 export const useGeoStore = create<GeoState>()((set) => ({
   coordinates: {
-    latitude: 0,
-    longitude: 0,
+    latitude: '',
+    longitude: '',
   },
 
   loadingSpinner: false,
@@ -78,7 +78,7 @@ export const useGeoStore = create<GeoState>()((set) => ({
         longitude: long,
       },
     })),
-  setLatitude: (lat: number) =>
+  setLatitude: (lat: string) =>
     set((state) => ({
       ...state.coordinates,
       coordinates: {
@@ -86,7 +86,7 @@ export const useGeoStore = create<GeoState>()((set) => ({
         longitude: state.coordinates.longitude,
       },
     })),
-  setLongitude: (long: number) =>
+  setLongitude: (long: string) =>
     set((state) => ({
       ...state.coordinates,
       coordinates: {
