@@ -96,7 +96,7 @@ export const Map = () => {
           )
           .openOn(map);
 
-        setCoordinates(e.latlng.lat, e.latlng.lng);
+        setCoordinates(e.latlng.lat.toString(), e.latlng.lng.toString());
       },
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       // locationfound(e: any) {
@@ -109,7 +109,7 @@ export const Map = () => {
       coordinates.latitude !== null &&
       coordinates.longitude !== null && (
         <Marker
-          position={[coordinates?.latitude, coordinates?.longitude]}
+          position={[parseFloat(coordinates?.latitude), parseFloat(coordinates?.longitude)]}
           icon={customClickIcon}
         >
           <Popup>Hola!</Popup>
