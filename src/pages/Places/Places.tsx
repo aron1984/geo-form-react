@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Layout } from "../../components/layout";
+import { useNavigate } from "react-router";
 
 import { onGetGeoloc, deleteGeoloc, getGeolocs } from "../../../firebase";
 import { DocumentWithId, IGeoData } from "../../utils/interfaces";
@@ -8,13 +9,14 @@ import { useGeoStore } from "../../store/store";
 import Spinner from "../../components/Spinner/Spinner";
 import Modal from "../../components/Modal/Modal";
 
-
-
 export const Places = () => {
+  const { setShowLoadingSpiner, loadingSpinner, setSelectedDocId } =
+    useGeoStore();
   const [locations, setLocations] = useState<unknown[] | IGeoData[] | null>([]);
-  const { setShowLoadingSpiner, loadingSpinner } = useGeoStore();
   const [showModalSucces, setShowModalSucces] = useState(false);
   const [showModalError, setShowModalError] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchLocations() {
@@ -28,8 +30,7 @@ export const Places = () => {
             locations.push(locationWithId);
           });
 
-            setLocations(locations);
-
+          setLocations(locations);
         });
       } catch (error) {
         console.error("Error al obtener las localizaciones:", error);
@@ -54,13 +55,37 @@ export const Places = () => {
     }, 1000);
   };
 
+  const modifyLocation = (id: string) => {
+    setSelectedDocId(id);
+    setShowLoadingSpiner(true);
+    setTimeout(() => {
+      try {
+        // REFACTOR:
+        /**
+         * [*] Agregar al store selectedDocId y el seter.
+         * [*] Tiene que interpetar este estado para hacer save o update.
+         * [*] Esta accitiene que setear un estado que diga que es un dato a actualizarse, y que en ese caso haga update sobre ese id
+         * [ ] Levar la logia de useState del formulario, al estado global. Asi podemos rellenar el form desde este componente.
+         * [ ] Tiene que redirigir al home a ese punto en el mapa, y debe ver en formulario los datos a editar
+         * [ ] Solucionar crash cuando hacemos focus o onblur en el input de lat o lng y no hay datos.
+         */
+        navigate("/");
+      } catch (error) {
+        console.error("No se pudo editar información de la localización");
+        setShowModalError(true);
+      } finally {
+        setShowLoadingSpiner(false);
+      }
+    }, 1000);
+  };
+
   return (
     <Layout title="places" subtitle="Mis lugares">
       <div className="flex absolute top-24 md:top-40 w-full justify-center items-start">
         <ListLocation
           data={locations}
           deleteLocation={deleteLocation}
-          modifyLocation={() => console.log()}
+          modifyLocation={modifyLocation}
         />
       </div>
       {loadingSpinner && <Spinner data={"Loadings"} color="delete" />}

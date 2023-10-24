@@ -1,10 +1,11 @@
 import { create } from "zustand";
 import { mountStoreDevtool } from "simple-zustand-devtools";
+import { IDataFirebase } from "../utils/interfaces";
 
 interface GeoState {
   coordinates: {
-    latitude: number;
-    longitude: number;
+    latitude: string;
+    longitude: string;
   };
 
   myCoordinates: {
@@ -14,24 +15,61 @@ interface GeoState {
 
   loadingSpinner: boolean;
 
+  formDataStore: {
+    fLat: string;
+    fLng: string;
+    fNam: string;
+    fDes: string;
+  };
+
+  selectedDocId: string;
+
+  setSelectedDocId: (id: string) => void;
+
+  setFormDataStore: (data: IDataFirebase) => void;
+
   setShowLoadingSpiner: (status: boolean) => void;
-  setCoordinates: (lat: number, long: number) => void;
-  setLatitude: (lat: number) => void;
-  setLongitude: (long: number) => void;
+  setCoordinates: (lat: string, long: string) => void;
+  setLatitude: (lat: string) => void;
+  setLongitude: (long: string) => void;
 
   setMyPosition: (lat: number, long: number) => void;
 }
 
 export const useGeoStore = create<GeoState>()((set) => ({
   coordinates: {
-    latitude: 0,
-    longitude: 0,
+    latitude: '',
+    longitude: '',
   },
 
   loadingSpinner: false,
 
-  setShowLoadingSpiner: (status) =>
-    set(() => ({ loadingSpinner: status })),
+  formDataStore: {
+    fLat: "",
+    fLng: "",
+    fNam: "",
+    fDes: "",
+  },
+
+  selectedDocId: '',
+
+  setSelectedDocId: (id) =>
+    set(() => ({
+      selectedDocId: id,
+    })),
+
+  setFormDataStore: ({ fLat, fLng, fNam, fDes }) =>
+    set((state) => ({
+      ...state.formDataStore,
+      formDataStore: {
+        fLat: fLat,
+        fLng: fLng,
+        fNam: fNam,
+        fDes: fDes,
+      },
+    })),
+
+  setShowLoadingSpiner: (status) => set(() => ({ loadingSpinner: status })),
   setCoordinates: (lat, long) =>
     set((state) => ({
       ...state.coordinates,
@@ -40,7 +78,7 @@ export const useGeoStore = create<GeoState>()((set) => ({
         longitude: long,
       },
     })),
-  setLatitude: (lat: number) =>
+  setLatitude: (lat: string) =>
     set((state) => ({
       ...state.coordinates,
       coordinates: {
@@ -48,7 +86,7 @@ export const useGeoStore = create<GeoState>()((set) => ({
         longitude: state.coordinates.longitude,
       },
     })),
-  setLongitude: (long: number) =>
+  setLongitude: (long: string) =>
     set((state) => ({
       ...state.coordinates,
       coordinates: {
