@@ -72,7 +72,13 @@ const getGeoloc = async (id: string) => {
 const updateGeoloc = (
   id: string,
   newFields: { [x: string]: FieldValue | Partial<unknown> | undefined }
-) => updateDoc(doc(db, "geoloc", id), newFields);
+) =>
+  updateDoc(doc(db, "geoloc", id), {
+    lat: newFields.fLat,
+    lng: newFields.fLng,
+    name: newFields.fNam,
+    description: newFields.fDes,
+  });
 
 export {
   app,
