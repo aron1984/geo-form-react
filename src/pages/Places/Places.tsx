@@ -60,15 +60,7 @@ export const Places = () => {
     setShowLoadingSpiner(true);
     setTimeout(() => {
       try {
-        // REFACTOR:
-        /**
-         * [*] Agregar al store selectedDocId y el seter.
-         * [*] Tiene que interpetar este estado para hacer save o update.
-         * [*] Esta accitiene que setear un estado que diga que es un dato a actualizarse, y que en ese caso haga update sobre ese id
-         * [ ] Levar la logia de useState del formulario, al estado global. Asi podemos rellenar el form desde este componente.
-         * [ ] Tiene que redirigir al home a ese punto en el mapa, y debe ver en formulario los datos a editar
-         * [ ] Solucionar crash cuando hacemos focus o onblur en el input de lat o lng y no hay datos.
-         */
+    
         navigate("/");
       } catch (error) {
         console.error("No se pudo editar información de la localización");
