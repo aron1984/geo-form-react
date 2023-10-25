@@ -67,11 +67,10 @@ export const Map = () => {
   const popup = L.popup();
 
   function LocationMarker() {
-    // const [position, setPosition] = useState(null);
     const map = useMapEvents({
       click(e) {
         // map.locate()
-        const popupOffset = [0.004, 0]; // corre hacia arriba el popup par que no se superponga con el marcador
+        const popupOffset = [0.004, 0];
         popup
           // .setLatLng(e.latlng)
           .setLatLng([
@@ -82,10 +81,10 @@ export const Map = () => {
             ` <div class="flex w-52 justify-between">
                 <div class='flex flex-col w-full gap-2'>
                   <div class='flex w-full items-center'>
-                    <img src="/img/latitud.png" class='w-5 h-5 mr-1'><span class='pt-1'>${e.latlng.lat}</span>
+                    <img alt="coordenada" src="/img/latitud.png" class='w-5 h-5 mr-1'><span class='pt-1'>${e.latlng.lat}</span>
                   </div>
                   <div class='flex w-full items-center'>
-                    <img src="/img/longitud.png" class='w-5 h-5 mr-1'><span class='pt-1'> ${e.latlng.lng}</span>
+                    <img alt="coordenada" src="/img/longitud.png" class='w-5 h-5 mr-1'><span class='pt-1'> ${e.latlng.lng}</span>
                   </div>
                 </div>
                 <a href="#formPlace" class='flex items-center'>
@@ -106,8 +105,8 @@ export const Map = () => {
     });
 
     return (
-      coordinates.latitude !== null &&
-      coordinates.longitude !== null && (
+      coordinates.latitude !== '' &&
+      coordinates.longitude !== '' && (
         <Marker
           position={[parseFloat(coordinates?.latitude), parseFloat(coordinates?.longitude)]}
           icon={customClickIcon}
@@ -134,7 +133,7 @@ export const Map = () => {
       <LocationMarker />
       {myCoordinates.latitude !== null && myCoordinates.longitude !== null && (
         <Marker
-          position={[myCoordinates?.latitude, myCoordinates?.longitude]}
+          position={[myCoordinates.latitude, myCoordinates.longitude]}
           icon={customCurrentIcon}
         >
           <Popup>You are here!</Popup>
