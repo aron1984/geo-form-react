@@ -37,3 +37,8 @@ export interface IColorSpinner {
 }
 
 export type ILoaderColor = "save" | "delete" | "edit";
+
+export interface IUser {
+  name: string | null
+  profile: "admin" | "client" | "visitor" | undefined
+}
