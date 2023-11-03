@@ -42,3 +42,8 @@ export interface IUser {
   name: string | null
   profile: "admin" | "client" | "visitor" | undefined
 }
+
+export interface ILogin {
+  email: string | null
+  password: string | null
+}

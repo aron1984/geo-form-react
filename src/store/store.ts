@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { mountStoreDevtool } from "simple-zustand-devtools";
-import { IDataFirebase, IUser } from '../utils/interfaces';
+import { IDataFirebase, IUser } from "../utils/interfaces";
 
 interface GeoState {
   user: IUser;
@@ -29,6 +29,7 @@ interface GeoState {
 
   setUser: (user: IUser) => void;
   setIsLoggedIn: () => void;
+  setIsLoggedOut: () => void;
   setSelectedDocId: (id: string) => void;
 
   setFormDataStore: (data: IDataFirebase) => void;
@@ -60,13 +61,13 @@ export const useGeoStore = create<GeoState>()((set) => ({
   },
   selectedDocId: "",
   setIsLoggedIn: () =>
-  set(() => ({
-    isLogged: true
-  })),
+    set(() => ({
+      isLogged: true,
+    })),
   setIsLoggedOut: () =>
-  set(() => ({
-    isLogged: false
-  })),
+    set(() => ({
+      isLogged: false,
+    })),
   setSelectedDocId: (id) =>
     set(() => ({
       selectedDocId: id,
