@@ -3,12 +3,13 @@ import { IGeoData } from "../../../utils/interfaces";
 
 interface ILoc {
   item: IGeoData;
-  onModify: (id:string) => void;
+  onModify: (id: string) => void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onDelete: () => void;
+  isLogged: boolean;
 }
 
-export const LocItem: FC<ILoc> = ({ item, onDelete, onModify }) => {
+export const LocItem: FC<ILoc> = ({ item, onDelete, onModify, isLogged }) => {
   return (
     <div className="flex w-full h-28 bg-slate-100 py-2 my-2 md:m-3 shadow-md">
       <div className="flex flex-col items-start w-5/6 px-2 md:px-4">
@@ -37,20 +38,22 @@ export const LocItem: FC<ILoc> = ({ item, onDelete, onModify }) => {
           <p>{item.description}</p>
         </div>
       </div>
-      <div className="flex flex-col md:flex-row md:items-center items-center justify-center w-1/6 gap-2 border-l-2">
-        <img
-          className="w-8 h-8 cursor-pointer"
-          src="/img/edit.png"
-          alt="modificar"
-          onClick={() => onModify(item.id || '')}
-        />
-        <img
-          className="w-8 h-8 cursor-pointer"
-          src="/img/delete.png"
-          alt="eliminar"
-          onClick={onDelete}
-        />
-      </div>
+      {isLogged && (
+        <div className="flex flex-col md:flex-row md:items-center items-center justify-center w-1/6 gap-2 border-l-2">
+          <img
+            className="w-8 h-8 cursor-pointer"
+            src="/img/edit.png"
+            alt="modificar"
+            onClick={() => onModify(item.id || "")}
+          />
+          <img
+            className="w-8 h-8 cursor-pointer"
+            src="/img/delete.png"
+            alt="eliminar"
+            onClick={onDelete}
+          />
+        </div>
+      )}
     </div>
   );
 };

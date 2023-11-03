@@ -10,7 +10,7 @@ import Spinner from "../../components/Spinner/Spinner";
 import Modal from "../../components/Modal/Modal";
 
 export const Places = () => {
-  const { setShowLoadingSpiner, loadingSpinner, setSelectedDocId } =
+  const { setShowLoadingSpiner, loadingSpinner, setSelectedDocId, isLogged } =
     useGeoStore();
   const [locations, setLocations] = useState<unknown[] | IGeoData[] | null>([]);
   const [showModalSucces, setShowModalSucces] = useState(false);
@@ -76,6 +76,7 @@ export const Places = () => {
       <div className="flex absolute top-24 md:top-40 w-full justify-center items-start">
         <ListLocation
           data={locations}
+          isLogged={isLogged}
           deleteLocation={deleteLocation}
           modifyLocation={modifyLocation}
         />

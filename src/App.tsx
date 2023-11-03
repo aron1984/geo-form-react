@@ -9,6 +9,7 @@ import { useGeoStore } from "./store/store";
 
 function App() {
   const { loadingSpinner } = useGeoStore();
+
   return (
     <Layout title={"home"}>
       <Map />
@@ -17,7 +18,7 @@ function App() {
         <img src="img/g-logo_myv.svg" className="w-11 h-11" />
       </div>
 
-      {loadingSpinner && <Spinner color="save" data={"Loadings"}  />}
+      {loadingSpinner && <Spinner color="save" data={"Loadings"} />}
     </Layout>
   );
 }
