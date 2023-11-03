@@ -1,8 +1,11 @@
 import { create } from "zustand";
 import { mountStoreDevtool } from "simple-zustand-devtools";
-import { IDataFirebase } from "../utils/interfaces";
+import { IDataFirebase, IUser } from "../utils/interfaces";
 
 interface GeoState {
+  user: IUser;
+  isLogged: boolean;
+
   coordinates: {
     latitude: string;
     longitude: string;
@@ -24,6 +27,9 @@ interface GeoState {
 
   selectedDocId: string;
 
+  setUser: (user: IUser) => void;
+  setIsLoggedIn: () => void;
+  setIsLoggedOut: () => void;
   setSelectedDocId: (id: string) => void;
 
   setFormDataStore: (data: IDataFirebase) => void;
@@ -37,27 +43,35 @@ interface GeoState {
 }
 
 export const useGeoStore = create<GeoState>()((set) => ({
-  coordinates: {
-    latitude: '',
-    longitude: '',
+  user: {
+    name: "",
+    profile: "visitor",
   },
-
+  isLogged: false,
+  coordinates: {
+    latitude: "",
+    longitude: "",
+  },
   loadingSpinner: false,
-
   formDataStore: {
     fLat: "",
     fLng: "",
     fNam: "",
     fDes: "",
   },
-
-  selectedDocId: '',
-
+  selectedDocId: "",
+  setIsLoggedIn: () =>
+    set(() => ({
+      isLogged: true,
+    })),
+  setIsLoggedOut: () =>
+    set(() => ({
+      isLogged: false,
+    })),
   setSelectedDocId: (id) =>
     set(() => ({
       selectedDocId: id,
     })),
-
   setFormDataStore: ({ fLat, fLng, fNam, fDes }) =>
     set((state) => ({
       ...state.formDataStore,
@@ -68,7 +82,6 @@ export const useGeoStore = create<GeoState>()((set) => ({
         fDes: fDes,
       },
     })),
-
   setShowLoadingSpiner: (status) => set(() => ({ loadingSpinner: status })),
   setCoordinates: (lat, long) =>
     set((state) => ({
@@ -104,6 +117,14 @@ export const useGeoStore = create<GeoState>()((set) => ({
       myCoordinates: {
         latitude: lat,
         longitude: long,
+      },
+    })),
+  setUser: (user: IUser) =>
+    set((state) => ({
+      ...state.user,
+      user: {
+        name: user.name,
+        profile: user.profile,
       },
     })),
 }));
