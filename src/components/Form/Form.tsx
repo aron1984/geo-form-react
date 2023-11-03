@@ -12,7 +12,8 @@ export const Form = () => {
     setLatitude,
     setLongitude,
     setShowLoadingSpiner,
-    // formDataStore, // REFACTOR: VER QUEHACEMOS CON ESTE DATO.. era para sacar el useState y usa este 
+    user,
+    // formDataStore, // REFACTOR: VER QUEHACEMOS CON ESTE DATO.. era para sacar el useState y usa este
     // setFormDataStore,
     selectedDocId,
     setSelectedDocId,
@@ -53,16 +54,16 @@ export const Form = () => {
     const { name, value } = e.target;
 
     if (name === "latitude") {
-      if(value === '-') {
-       return setLatitude('')
+      if (value === "-") {
+        return setLatitude("");
       }
       setLatitude(value);
     }
 
     if (name === "longitude") {
-      if(value === '-') {
-        return setLongitude('')
-       }
+      if (value === "-") {
+        return setLongitude("");
+      }
       setLongitude(value);
     }
 
@@ -98,7 +99,8 @@ export const Form = () => {
     formData.latitude === "" ||
     formData.longitude === "" ||
     formData.name === "" ||
-    formData.description === "";
+    formData.description === "" ||
+    user.profile !== "admin";
 
   const isClearEnabled =
     formData.latitude !== "" ||
@@ -174,7 +176,7 @@ export const Form = () => {
 
   return (
     <>
-      <div className="flex w-full flex-col bg-slate-600 justify-center py-20 px-10 gap-2 absolute top-630 md:top-824">
+      <div className="flex w-full flex-col bg-slate-600 justify-center py-10 md:py-20 px-10 gap-2 absolute top-630 md:top-824">
         <h3 className="font-bold text-base md:text-3xl text-gray-100">
           Formulario
         </h3>
@@ -194,9 +196,7 @@ export const Form = () => {
                 type="text"
                 id="latitude"
                 name="latitude"
-                value={
-                  coordinates?.latitude || ''
-                }
+                value={coordinates?.latitude || ""}
                 onChange={handleChange}
                 onBlur={handleChange} // Manejar el evento blur
               />
@@ -212,9 +212,7 @@ export const Form = () => {
                 id="longitude"
                 name="longitude"
                 value={
-                  coordinates.longitude === ''
-                    ? ""
-                    : coordinates.longitude
+                  coordinates.longitude === "" ? "" : coordinates.longitude
                 }
                 onChange={handleChange}
                 onBlur={handleChange} // Manejar el evento blur
