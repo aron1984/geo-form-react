@@ -6,12 +6,14 @@ interface IData {
   data: IGeoData[] | unknown[] | null;
   deleteLocation: (id: string) => void;
   modifyLocation: (id: string) => void;
+  isLogged: boolean;
 }
 
 export const ListLocation: FC<IData> = ({
   data,
   deleteLocation,
   modifyLocation,
+  isLogged,
 }) => {
   return (
     <div className="flex flex-row w-full justify-center">
@@ -25,6 +27,7 @@ export const ListLocation: FC<IData> = ({
               item={location}
               onDelete={() => deleteLocation(location.id)}
               onModify={modifyLocation}
+              isLogged={isLogged}
             />
           ))}
       </ul>
