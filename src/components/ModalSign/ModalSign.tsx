@@ -26,13 +26,7 @@ export const ModalSign: FC<Props> = ({
   };
 
   const handleOnSubmit = () => {
-    // console.log("Submit: ", dataUserLogin);
-    try {
-      action();
-    } catch (e) {
-      console.log(e);
-    }
-    console.log(action);
+    action();
   };
   const renderForm = () => {
     if (type === "signIn") {
