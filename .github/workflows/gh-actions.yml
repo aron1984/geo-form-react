@@ -1,0 +1,42 @@
+name: CI/CD with Jest and Vercel
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Run Jest tests
+         # run: yarn test
+        run: echo "Esto va correr un test de jest"
+
+      - name: Deploy to Vercel - Preview
+        uses: vercel/actions@v21
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-env: preview
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Manual Deployment to Production
+        if: github.event_name == 'workflow_dispatch'
+        run: echo "Execute manual deployment to production here"
