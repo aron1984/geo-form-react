@@ -105,11 +105,11 @@ Below, I share a series of steps and features for you to install the project. Fe
 - [x] Add map
 - [x] Add geolocate
 - [x] Add form & alerts
-- [x] Add light & dark mode
 - [x] Add Page List
+- [x] Add Login
+- [ ] Add light & dark mode
 - [ ] Add browser
 - [ ] Add layers map
-- [ ] Add Login
 - [ ] Add form state off line
 - [ ] Multi-language Support
   - [ ] English

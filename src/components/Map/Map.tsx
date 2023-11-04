@@ -122,8 +122,8 @@ export const Map = () => {
       center={positionX}
       zoom={13}
       scrollWheelZoom={false}
-      className="relative top-10 md:top-20"
-      style={{ height: "80vh", width: "100%", zIndex: "0" }}
+      className="relative top-10 md:top-20 w-full z-0"
+      style={{ height: "80vh" }}
       id="map"
     >
       <TileLayer

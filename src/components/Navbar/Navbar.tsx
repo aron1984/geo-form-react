@@ -4,7 +4,6 @@ import { IItems } from "../../utils/interfaces";
 import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { useGeoStore } from "../../store/store";
 import { ModalSign } from "../ModalSign";
-import Spinner from "../Spinner/Spinner";
 
 interface Props {
   items: IItems[];
@@ -19,7 +18,6 @@ export const Navbar: FC<Props> = ({ items }) => {
     setUser,
     setIsLoggedIn,
     setIsLoggedOut,
-    loadingSpinner,
     setShowLoadingSpiner,
   } = useGeoStore();
   const [dataUserLogin, setDataUserLogin] = useState({
@@ -156,7 +154,6 @@ export const Navbar: FC<Props> = ({ items }) => {
           errorSingIn={showErrorSignIn}
         />
       )}
-      {loadingSpinner && <Spinner color="save" data={"Loadings"} />}
     </>
   );
 };
