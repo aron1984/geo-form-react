@@ -106,8 +106,13 @@ Below, I share a series of steps and features for you to install the project. Fe
 - [x] Add geolocate
 - [x] Add form & alerts
 - [x] Add Page List
-- [x] Add Login
-- [ ] Add light & dark mode
+- [x] Add Login in Navbar
+- [x] Add user category for use the form (admin, client, visitor)
+   - [x] Rol admin: add, edit and delete geolocation
+   - [x] Rol visitor: navigate, read only geolocations
+   - [x] Rol client: navigate, read only geolocations
+      - [ ] View and admin only your geolocations
+- [ ] Add light & dark mode app
 - [ ] Add browser
 - [ ] Add layers map
 - [ ] Add form state off line
