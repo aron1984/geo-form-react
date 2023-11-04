@@ -1,4 +1,5 @@
 import { ChangeEvent, FC } from "react";
+import { IUser } from "../../utils/interfaces";
 
 interface Props {
   action: () => void;
@@ -9,6 +10,8 @@ interface Props {
     password: string;
   }) => void;
   secondaryAction: () => void;
+  user: IUser;
+  errorSingIn: boolean
 }
 
 export const ModalSign: FC<Props> = ({
@@ -17,6 +20,8 @@ export const ModalSign: FC<Props> = ({
   dataUserLogin,
   setDataUserLogin,
   secondaryAction,
+  user,
+  errorSingIn
 }) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -39,6 +44,11 @@ export const ModalSign: FC<Props> = ({
             >
               Correo Electrónico
             </label>
+            {errorSingIn && (
+              <span className="block text-xs font-medium text-red-900">
+                No es un usuario registrado. Ponte en contacto con el administrador
+              </span>
+            )}
             <input
               type="email"
               id="email"
@@ -59,13 +69,22 @@ export const ModalSign: FC<Props> = ({
               onChange={handleOnChange}
             />
           </div>
-          <button
-            onClick={handleOnSubmit}
-            type="button"
-            className="w-full bg-blue-500 text-white font-semibold py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
-          >
-            Iniciar sesión
-          </button>
+          <div className="flex flex-col gap-2">
+            <button
+              onClick={handleOnSubmit}
+              type="button"
+              className="w-full bg-blue-500 text-white font-semibold py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+            >
+              Iniciar sesión
+            </button>
+            <button
+              onClick={secondaryAction}
+              type="button"
+              className="w-full bg-gray-100 text-slate-500 font-semibold py-2 rounded-md hover:bg-gray-300 focus:outline-none focus:bg-gray-300"
+            >
+              Cancelar
+            </button>
+          </div>
         </form>
       );
     }
@@ -78,7 +97,7 @@ export const ModalSign: FC<Props> = ({
             </p>
 
             <p className="w-full border-2 rounded-md py-2 px-3 focus:outline-none focus:border-blue-400">
-              ronconialejadro@lmail.com
+              {user.name}
             </p>
           </div>
           <div className="flex flex-col gap-2">
