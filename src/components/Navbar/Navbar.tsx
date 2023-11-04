@@ -1,10 +1,10 @@
 import { FC, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-// import { itemsNavbar as items } from "../../utils/constants";
 import { IItems } from "../../utils/interfaces";
 import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { useGeoStore } from "../../store/store";
 import { ModalSign } from "../ModalSign";
+import Spinner from "../Spinner/Spinner";
 
 interface Props {
   items: IItems[];
@@ -13,13 +13,21 @@ interface Props {
 export const Navbar: FC<Props> = ({ items }) => {
   const SUPER_USER = import.meta.env.VITE_SUPER_USER_ADMIN;
   const location = useLocation();
-  const { user, isLogged, setUser, setIsLoggedIn, setIsLoggedOut } =
-    useGeoStore();
+  const {
+    user,
+    isLogged,
+    setUser,
+    setIsLoggedIn,
+    setIsLoggedOut,
+    loadingSpinner,
+    setShowLoadingSpiner,
+  } = useGeoStore();
   const [dataUserLogin, setDataUserLogin] = useState({
     email: "",
     password: "",
   });
   const [showModalSign, setShowModalSign] = useState(false);
+  const [showErrorSignIn, setShowErrorSignIn] = useState(false);
 
   const auth = getAuth();
 
@@ -48,6 +56,7 @@ export const Navbar: FC<Props> = ({ items }) => {
   }, [setUser, auth.currentUser]);
 
   const login = () => {
+    setShowLoadingSpiner(true);
     signInWithEmailAndPassword(
       auth,
       dataUserLogin.email,
@@ -57,20 +66,27 @@ export const Navbar: FC<Props> = ({ items }) => {
         const user = userCredential.user;
         const userName = user.email;
 
-        setUser({ name: userName, profile: userProfile(userCredential?.user?.email) });
+        setUser({
+          name: userName,
+          profile: userProfile(userCredential?.user?.email),
+        });
         setIsLoggedIn();
-        // ...
+        setShowErrorSignIn(false);
+        setShowModalSign(false);
       })
       .catch((error) => {
+        setShowErrorSignIn(true);
         console.error(error.code);
         console.error(error.message);
+        return;
       })
       .finally(() => {
-        setShowModalSign(false);
+        setShowLoadingSpiner(false);
       });
   };
 
   const logOut = () => {
+    setShowLoadingSpiner(true)
     signOut(auth)
       .then(() => {
         setUser({ name: "", profile: "visitor" });
@@ -81,6 +97,7 @@ export const Navbar: FC<Props> = ({ items }) => {
       })
       .finally(() => {
         setShowModalSign(false);
+        setShowLoadingSpiner(false)
       });
   };
 
@@ -135,8 +152,11 @@ export const Navbar: FC<Props> = ({ items }) => {
           type={isLogged ? "signOut" : "signIn"}
           dataUserLogin={dataUserLogin}
           setDataUserLogin={setDataUserLogin}
+          user={user}
+          errorSingIn={showErrorSignIn}
         />
       )}
+      {loadingSpinner && <Spinner color="save" data={"Loadings"} />}
     </>
   );
 };
