@@ -10,7 +10,7 @@ import Spinner from "../../components/Spinner/Spinner";
 import Modal from "../../components/Modal/Modal";
 
 export const Places = () => {
-  const { setShowLoadingSpiner, loadingSpinner, setSelectedDocId, isLogged } =
+  const { setShowLoadingSpiner, loadingSpinner, setSelectedDocId, isLogged, user } =
     useGeoStore();
   const [locations, setLocations] = useState<unknown[] | IGeoData[] | null>([]);
   const [showModalSucces, setShowModalSucces] = useState(false);
@@ -79,6 +79,7 @@ export const Places = () => {
           isLogged={isLogged}
           deleteLocation={deleteLocation}
           modifyLocation={modifyLocation}
+          user={user}
         />
       </div>
       {loadingSpinner && <Spinner data={"Loadings"} color="delete" />}

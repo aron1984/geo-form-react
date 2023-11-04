@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { IGeoData } from "../../utils/interfaces";
+import { IGeoData, IUser } from "../../utils/interfaces";
 import { LocItem } from "./LocItem";
 
 interface IData {
@@ -7,6 +7,7 @@ interface IData {
   deleteLocation: (id: string) => void;
   modifyLocation: (id: string) => void;
   isLogged: boolean;
+  user: IUser
 }
 
 export const ListLocation: FC<IData> = ({
@@ -14,6 +15,7 @@ export const ListLocation: FC<IData> = ({
   deleteLocation,
   modifyLocation,
   isLogged,
+  user
 }) => {
   return (
     <div className="flex flex-row w-full justify-center">
@@ -28,6 +30,7 @@ export const ListLocation: FC<IData> = ({
               onDelete={() => deleteLocation(location.id)}
               onModify={modifyLocation}
               isLogged={isLogged}
+              user={user}
             />
           ))}
       </ul>

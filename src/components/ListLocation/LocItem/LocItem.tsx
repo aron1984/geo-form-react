@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { IGeoData } from "../../../utils/interfaces";
+import { IGeoData, IUser } from "../../../utils/interfaces";
 
 interface ILoc {
   item: IGeoData;
@@ -7,9 +7,10 @@ interface ILoc {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onDelete: () => void;
   isLogged: boolean;
+  user: IUser
 }
 
-export const LocItem: FC<ILoc> = ({ item, onDelete, onModify, isLogged }) => {
+export const LocItem: FC<ILoc> = ({ item, onDelete, onModify, isLogged, user }) => {
   return (
     <div className="flex w-full h-28 bg-slate-100 py-2 my-2 md:m-3 shadow-md">
       <div className="flex flex-col items-start w-5/6 px-2 md:px-4">
@@ -38,7 +39,7 @@ export const LocItem: FC<ILoc> = ({ item, onDelete, onModify, isLogged }) => {
           <p>{item.description}</p>
         </div>
       </div>
-      {isLogged && (
+      {isLogged && user.profile === 'admin' && (
         <div className="flex flex-col md:flex-row md:items-center items-center justify-center w-1/6 gap-2 border-l-2">
           <img
             className="w-8 h-8 cursor-pointer"
