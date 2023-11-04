@@ -11,7 +11,7 @@ interface Props {
 
 export const Layout: FC<Props> = ({ children, title, subtitle }) => {
   return (
-    <div className="bg-slate-200 w-full h-full" id={title}>
+    <div className="bg-slate-200 w-full min-h-screen flex flex-col pb-20" id={title}>
       <Navbar items={itemsNavbar} />
       {subtitle && (
         <div className="relative top-10 md:top-20">
