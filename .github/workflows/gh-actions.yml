@@ -26,7 +26,7 @@ jobs:
         run: echo "Esto va correr un test de jest"
 
       - name: Deploy to Vercel - Preview
-        uses: vercel/actions@v21
+        uses: vercel/actions@latest
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
