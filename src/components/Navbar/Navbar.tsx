@@ -33,17 +33,6 @@ export const Navbar: FC<Props> = ({ items }) => {
 
   const auth = getAuth();
 
-  // const userProfile = (email: string | null) => {
-  //   if (email === SUPER_USER) {
-  //     return "admin";
-  //   } else if (email?.length && email !== SUPER_USER) {
-  //     return "client";
-  //   }
-  //   if (!email?.length) {
-  //     return "visitor";
-  //   }
-  // };
-
   useEffect(() => {
     const userCurrent = auth.currentUser;
     if (userCurrent !== null) {

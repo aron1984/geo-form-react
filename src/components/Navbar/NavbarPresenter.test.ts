@@ -30,6 +30,5 @@ describe("Test Presenter", () => {
     expect(profile).toBe("visitor");
   });
 
-  const superUser = 'ronconialejandro@gmail.com'
-}); 
-
+  const superUser = "ronconialejandro@gmail.com";
+});
