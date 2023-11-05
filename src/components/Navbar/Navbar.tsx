@@ -4,6 +4,7 @@ import { IItems } from "../../utils/interfaces";
 import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { useGeoStore } from "../../store/store";
 import { ModalSign } from "../ModalSign";
+import { NavbarPresenter } from "./NavbarPresenter";
 
 interface Props {
   items: IItems[];
@@ -11,6 +12,8 @@ interface Props {
 
 export const Navbar: FC<Props> = ({ items }) => {
   const SUPER_USER = import.meta.env.VITE_SUPER_USER_ADMIN;
+  const presenter = new NavbarPresenter(SUPER_USER)
+
   const location = useLocation();
   const {
     user,
@@ -26,19 +29,20 @@ export const Navbar: FC<Props> = ({ items }) => {
   });
   const [showModalSign, setShowModalSign] = useState(false);
   const [showErrorSignIn, setShowErrorSignIn] = useState(false);
+  
 
   const auth = getAuth();
 
-  const userProfile = (email: string | null) => {
-    if (email === SUPER_USER) {
-      return "admin";
-    } else if (email?.length && email !== SUPER_USER) {
-      return "client";
-    }
-    if (!email?.length) {
-      return "visitor";
-    }
-  };
+  // const userProfile = (email: string | null) => {
+  //   if (email === SUPER_USER) {
+  //     return "admin";
+  //   } else if (email?.length && email !== SUPER_USER) {
+  //     return "client";
+  //   }
+  //   if (!email?.length) {
+  //     return "visitor";
+  //   }
+  // };
 
   useEffect(() => {
     const userCurrent = auth.currentUser;
@@ -48,7 +52,7 @@ export const Navbar: FC<Props> = ({ items }) => {
       // const photoURL = user.photoURL;
       // const emailVerified = user.emailVerified;
       const email = userCurrent?.email;
-      setUser({ name: email, profile: userProfile(email) });
+      setUser({ name: email, profile: presenter.userProfile(email) });
       setIsLoggedIn();
     }
   }, [setUser, auth.currentUser]);
@@ -66,7 +70,7 @@ export const Navbar: FC<Props> = ({ items }) => {
 
         setUser({
           name: userName,
-          profile: userProfile(userCredential?.user?.email),
+          profile: presenter.userProfile(userCredential?.user?.email),
         });
         setIsLoggedIn();
         setShowErrorSignIn(false);
