@@ -1,8 +1,11 @@
 import { ChangeEvent, FC } from "react";
 import { IUser } from "../../utils/interfaces";
+import { Auth } from "firebase/auth";
+
+type LoginFunction = (dataUserLogin: { email: string; password: string; }, auth: Auth) => void;
 
 interface Props {
-  action: () => void;
+  action: () => void | LoginFunction;
   type: "signIn" | "signOut";
   dataUserLogin: { email: string; password: string };
   setDataUserLogin: (dataUserLogin: {
