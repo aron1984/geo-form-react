@@ -1,4 +1,4 @@
-export type IPathId = "home" | "about" | "places";
+export type IPathId = "home" | "about" | "places" | "notfound";
 
 export interface IItems {
   id: IPathId;

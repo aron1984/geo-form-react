@@ -24,8 +24,7 @@ jobs:
         run: yarn install
 
       - name: Run Jest tests
-        # run: yarn test
-        run: echo "Esto va ser un job de test"
+        run: yarn test
 
   Deploy-Preview:
     runs-on: ubuntu-latest
