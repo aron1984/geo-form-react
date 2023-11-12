@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useGeoStore } from "../../store/store";
 import { saveGeoloc, updateGeoloc } from "../../../firebase";
 import Modal from "../Modal/Modal";
+import {IDataFirebase} from "../../utils/interfaces.ts";
 
 export const Form = () => {
   const isEnabled = false;
@@ -99,8 +100,8 @@ export const Form = () => {
     formData.latitude === "" ||
     formData.longitude === "" ||
     formData.name === "" ||
-    formData.description === "" ||
-    user.profile !== "admin";
+    formData.description === ""
+    // user.profile === "admin";
 
   const isClearEnabled =
     formData.latitude !== "" ||
@@ -118,27 +119,7 @@ export const Form = () => {
     });
   };
 
-  const onHandleSubmit = () => {
-    setShowLoadingSpiner(true);
-    setTimeout(() => {
-      handleSubmit();
-    }, 2000);
-  };
-
-  const handleSubmit = () => {
-    // e.preventDefault();
-
-    if (Object.values(errors).some((error) => error !== "")) {
-      setErrorGeneral(true);
-      return;
-    }
-    const data = {
-      fLat: formData.latitude,
-      fLng: formData.longitude,
-      fNam: formData.name,
-      fDes: formData.description,
-    };
-
+  const hadleSubmitUserLogged = (data: {fLat: string, fLng: string, fNam: string, fDes: string}) => {
     try {
       // setFormDataStore(data);
       if (selectedDocId.length > 0) {
@@ -161,6 +142,68 @@ export const Form = () => {
       setShowLoadingSpiner(false);
       setShowModalError(true);
     }
+  }
+
+  const saveGeolocToLocalStorage = (data: IDataFirebase) => {
+    const userObj = {
+      fLat: data.fDes,
+      fLng: data.fLng,
+      fNam: data.fNam,
+      fDes: data.fDes,
+    };
+
+    const dataUserString: string | null = sessionStorage.getItem('dataUser');
+
+    let dataUser: { fLat: string; fLng: string; fNam: string; fDes: string }[] = [];
+
+    try {
+      if (dataUserString !== null) {
+        dataUser = JSON.parse(dataUserString);
+        dataUser.push(userObj);
+        setShowModalSucces(true);
+      } else {
+        dataUser.push(userObj);
+        setShowModalSucces(true);
+      }
+
+      sessionStorage.setItem('dataUser', JSON.stringify(dataUser));
+      setShowLoadingSpiner(false);
+    } catch (error) {
+      console.warn(error);
+      setShowLoadingSpiner(false);
+      setShowModalError(true);
+    }
+
+  }
+
+  const onHandleSubmit = () => {
+    setShowLoadingSpiner(true);
+    setTimeout(() => {
+      handleSubmit();
+    }, 2000);
+  };
+
+  const handleSubmit = () => {
+    // e.preventDefault();
+
+    if (Object.values(errors).some((error) => error !== "")) {
+      setErrorGeneral(true);
+      return;
+    }
+    const data = {
+      fLat: formData.latitude,
+      fLng: formData.longitude,
+      fNam: formData.name,
+      fDes: formData.description,
+    };
+
+    // TODO: tener en cuenta esta logica para cuando mostremos solo la informacion del un usuario determinado de firebase
+    // Por ahora damos la opción de guardar en en sessionStorage las localizaciones para que el usuario tenga la experiencia
+    if(user.profile === 'admin') {
+      hadleSubmitUserLogged(data);
+    } else {
+      saveGeolocToLocalStorage(data)
+    }
   };
 
   useEffect(() => {
@@ -170,9 +213,6 @@ export const Form = () => {
       longitude: coordinates?.longitude || "",
     });
   }, [coordinates?.latitude]);
-
-  // console.log("formDataStore", formDataStore);
-  // console.log("selected doc ID from places", selectedDocId);
 
   return (
     <>
