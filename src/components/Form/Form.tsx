@@ -146,7 +146,7 @@ export const Form = () => {
 
   const saveGeolocToLocalStorage = (data: IDataFirebase) => {
     const userObj = {
-      fLat: data.fDes,
+      fLat: data.fLat,
       fLng: data.fLng,
       fNam: data.fNam,
       fDes: data.fDes,

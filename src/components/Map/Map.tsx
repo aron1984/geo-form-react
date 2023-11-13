@@ -10,6 +10,7 @@ import {
 import "leaflet/dist/leaflet.css";
 import { getGeolocs } from "../../../firebase";
 import { useGeoStore } from "../../store/store";
+import {IDataFirebase} from "../../utils/interfaces.ts";
 
 interface IGeoData {
   description: string;
@@ -22,6 +23,7 @@ export const Map = () => {
   const { myCoordinates, setMyPosition, setCoordinates, coordinates } =
     useGeoStore();
   const [geoData, setgeoData] = useState([]);
+  const [storedData, setStoredData] = useState([])
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getGeolocs().then((res: any) => {
@@ -30,8 +32,23 @@ export const Map = () => {
     });
   }, []);
 
+  useEffect(() => {
+    const storedObject = sessionStorage.getItem('dataUser');
+    if (storedObject) {
+      setStoredData(JSON.parse(storedObject));
+    }
+  }, [sessionStorage]);
+
+
   const customIcon = new L.Icon({
     iconUrl: "img/g-logo_myv.svg",
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32],
+  });
+
+  const customIconStorage = new L.Icon({
+    iconUrl: "img/myvlogo-verde.svg",
     iconSize: [32, 32],
     iconAnchor: [16, 32],
     popupAnchor: [0, -32],
@@ -150,6 +167,17 @@ export const Map = () => {
             <Popup>{mark.description}</Popup>
           </Marker>
         ))}
+
+      {storedData &&
+          storedData.map((mark: IDataFirebase, index) => (
+              <Marker
+                  key={index}
+                  position={[parseFloat(mark?.fLat), parseFloat(mark?.fLng)]}
+                  icon={customIconStorage}
+              >
+                <Popup>{mark.fDes}</Popup>
+              </Marker>
+          ))}
     </MapContainer>
   );
 };
