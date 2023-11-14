@@ -99,7 +99,7 @@ export const Places = () => {
 
   return (
     <Layout title="places" subtitle="Mis lugares">
-      <div className="flex flex-col absolute top-24 md:top-40 w-full justify-center items-start">
+      <div className="flex flex-col absolute top-24 md:top-40 w-full justify-center items-center">
         <ListLocation
           data={locations}
           isLogged={isLogged}
@@ -107,17 +107,20 @@ export const Places = () => {
           modifyLocation={modifyLocation}
           user={user}
         />
+        {
+          storedData.length > 0 && (
+              <hr className='flex w-full border-gray-700 md:w-824 m-auto my-2'/>
+            )
+        }
 
-        <hr className='flex w-full border-gray-700'/>
 {/*TODO: crear componentes para esta parte*/}
-        <div className="flex flex-row w-fu
-        ll justify-center">
-          <ul className="flex flex-col w-full p-2 md:w-824 m-auto">
+        <div className="flex flex-row w-full justify-center">
+          <ul className="flex flex-col w-full py-2 md:w-824 m-auto items-center justify-center">
             {storedData &&
                 storedData.length !== 0 &&
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 storedData?.map((data: IDataFirebase, index) => (
-                    <div className="flex w-full h-28 bg-blue-300 py-2 my-2 md:m-3 shadow-md">
+                    <div className="flex w-full h-28 bg-gray-300 py-2 my-2 md:my-3 shadow-md">
                       <div className="flex flex-col items-start w-5/6 px-2 md:px-4">
                         <div className="h-8 flex items-end w-full mb-2">
                           <h5 className="text-sm m-0 font-medium">{data.fNam}</h5>
@@ -144,7 +147,7 @@ export const Places = () => {
                           <p>{data.fDes}</p>
                         </div>
                       </div>
-                          <div className="flex flex-col md:flex-row md:items-center items-center justify-center w-1/6 gap-2 border-l-2">
+                          <div className="flex flex-col md:flex-row md:items-center items-center justify-center w-1/6 gap-2 border-l-2 border-l-gray-600">
                             {/*<img*/}
                             {/*    className="w-8 h-8 cursor-pointer"*/}
                             {/*    src="/img/edit.png"*/}
