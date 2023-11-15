@@ -12,7 +12,7 @@ interface ILoc {
 
 export const LocItem: FC<ILoc> = ({ item, onDelete, onModify, isLogged, user }) => {
   return (
-    <div className="flex w-full h-28 bg-slate-100 py-2 my-2 md:m-3 shadow-md">
+    <div className="flex w-full h-28 bg-slate-100 py-2 my-2 md:my-3 shadow-md">
       <div className="flex flex-col items-start w-5/6 px-2 md:px-4">
         <div className="h-8 flex items-end w-full mb-2">
           <h5 className="text-sm m-0 font-medium">{item.name}</h5>

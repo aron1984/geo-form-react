@@ -19,7 +19,7 @@ export const ListLocation: FC<IData> = ({
 }) => {
   return (
     <div className="flex flex-row w-full justify-center">
-      <ul className="flex flex-col w-full p-2 md:w-824 m-auto">
+      <ul className="flex flex-col w-full py-2 md:w-824 m-auto">
         {data &&
           data.length !== 0 &&
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
