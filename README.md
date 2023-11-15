@@ -7,7 +7,7 @@
     <img src="src/assets/img/g-logo_myv.svg" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">GEOFORM REACT</h3>
+  <h3 align="center">GEOFORM REACT v2.0.0</h3>
 
   <p align="center">Some variants of the logo.</p>
     
@@ -112,6 +112,7 @@ Below, I share a series of steps and features for you to install the project. Fe
    - [x] Rol visitor: navigate, read only geolocations
    - [x] Rol client: navigate, read only geolocations
       - [ ] View and admin only your geolocations
+- [x] Save in sessionStorage locations when profile si 'client or visitor'
 - [ ] Add light & dark mode app
 - [ ] Add browser
 - [ ] Add layers map
