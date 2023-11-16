@@ -224,7 +224,10 @@ export const Map = () => {
           position={[myCoordinates.latitude, myCoordinates.longitude]}
           icon={customCurrentIcon}
         >
-          <Popup>You are here!</Popup>
+          <Popup>
+            <span>Estas son tus coordenadas</span><br></br>
+            <span className='mt-0'>Lat: {myCoordinates.latitude}  Lng: {myCoordinates.longitude}</span>
+          </Popup>
         </Marker>
       )}
     </MapContainer>
