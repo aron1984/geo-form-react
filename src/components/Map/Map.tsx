@@ -1,6 +1,7 @@
 import { useEffect, useState} from "react";
 import L, { LatLngExpression } from "leaflet";
 import {
+  LayerGroup,
   LayersControl, LayersControlProps,
   MapContainer,
   Marker,
@@ -31,7 +32,7 @@ export const Map = () => {
   const [geoData, setgeoData] = useState([]);
   const [storedData, setStoredData] = useState([])
 
-  const { BaseLayer, Overlay } = LayersControl;
+  const { BaseLayer } = LayersControl;
 
   const layersControlProps: LayersControlWithClassNameProps = {
     position: 'topright',
@@ -158,7 +159,6 @@ export const Map = () => {
       id="map"
     >
       <LayersControl position="topright" {...layersControlProps}>
-        {/* Capas base */}
         <BaseLayer checked name="OpenStreetMap">
           <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -174,17 +174,49 @@ export const Map = () => {
         </BaseLayer>
 
         {/* Capas adicionales (overlays) si las necesitas */}
-        <Overlay name="Satélite">
+        <BaseLayer name="Satélite">
           <TileLayer
               attribution='Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
               url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
           />
-        </Overlay>
+        </BaseLayer>
+
+        <LayersControl.Overlay checked name="Puntos DB">
+          <LayerGroup>
+            <div className="overlay-content">
+              {/* Renderizar puntos en el mapa */}
+              {geoData &&
+                  geoData.map((mark: IGeoData, index) => (
+                      <Marker
+                          key={index}
+                          position={[parseFloat(mark?.lat), parseFloat(mark?.lng)]}
+                          icon={customIcon}
+                      >
+                        <Popup>{mark.description}</Popup>
+                      </Marker>
+                  ))}
+            </div>
+          </LayerGroup>
+        </LayersControl.Overlay>
+
+        <LayersControl.Overlay checked name="Puntos User">
+          <LayerGroup>
+            <div className="overlay-content">
+              {storedData &&
+                  storedData.map((mark: IDataFirebase, index) => (
+                      <Marker
+                          key={index}
+                          position={[parseFloat(mark?.fLat), parseFloat(mark?.fLng)]}
+                          icon={customIconStorage}
+                      >
+                        <Popup>{mark.fDes}</Popup>
+                      </Marker>
+                  ))}
+            </div>
+          </LayerGroup>
+        </LayersControl.Overlay>
 
       </LayersControl>
-
-
-
 
       <LocationMarker />
       {myCoordinates.latitude !== null && myCoordinates.longitude !== null && (
@@ -195,28 +227,6 @@ export const Map = () => {
           <Popup>You are here!</Popup>
         </Marker>
       )}
-
-      {geoData &&
-        geoData.map((mark: IGeoData, index) => (
-          <Marker
-            key={index}
-            position={[parseFloat(mark?.lat), parseFloat(mark?.lng)]}
-            icon={customIcon}
-          >
-            <Popup>{mark.description}</Popup>
-          </Marker>
-        ))}
-
-      {storedData &&
-          storedData.map((mark: IDataFirebase, index) => (
-              <Marker
-                  key={index}
-                  position={[parseFloat(mark?.fLat), parseFloat(mark?.fLng)]}
-                  icon={customIconStorage}
-              >
-                <Popup>{mark.fDes}</Popup>
-              </Marker>
-          ))}
     </MapContainer>
   );
 };

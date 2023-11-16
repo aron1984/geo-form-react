@@ -47,3 +47,9 @@
   flex-direction: column;
   align-items: flex-start;
 }
+
+.leaflet-control-layers-overlays {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
