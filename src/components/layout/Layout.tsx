@@ -1,7 +1,8 @@
 import React, { FC } from "react";
 import { Navbar } from "../Navbar";
 import { IPathId } from "../../utils/interfaces";
-import { itemsNavbar } from "../../utils/constants";
+import {itemsNavbar, VERSION} from "../../utils/constants";
+import {Footer} from "../Footer";
 
 interface Props {
   title: IPathId;
@@ -21,6 +22,8 @@ export const Layout: FC<Props> = ({ children, title, subtitle }) => {
         </div>
       )}
       {children}
+
+      <Footer version={VERSION} />
     </div>
   );
 };
