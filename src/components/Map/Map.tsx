@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState} from "react";
 import L, { LatLngExpression } from "leaflet";
 import {
+  LayersControl, LayersControlProps,
   MapContainer,
   Marker,
   Popup,
@@ -19,11 +20,24 @@ interface IGeoData {
   name: string;
 }
 
+interface LayersControlWithClassNameProps extends LayersControlProps {
+  className?: string;
+}
+
+
 export const Map = () => {
   const { myCoordinates, setMyPosition, setCoordinates, coordinates } =
     useGeoStore();
   const [geoData, setgeoData] = useState([]);
   const [storedData, setStoredData] = useState([])
+
+  const { BaseLayer, Overlay } = LayersControl;
+
+  const layersControlProps: LayersControlWithClassNameProps = {
+    position: 'topright',
+    className: 'bg-red',
+  };
+
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getGeolocs().then((res: any) => {
@@ -143,10 +157,35 @@ export const Map = () => {
       style={{ height: "80vh" }}
       id="map"
     >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
+      <LayersControl position="topright" {...layersControlProps}>
+        {/* Capas base */}
+        <BaseLayer checked name="OpenStreetMap">
+          <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+        </BaseLayer>
+
+        <BaseLayer name="Dark">
+          <TileLayer
+              attribution='&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
+          />
+        </BaseLayer>
+
+        {/* Capas adicionales (overlays) si las necesitas */}
+        <Overlay name="Satélite">
+          <TileLayer
+              attribution='Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+              url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+          />
+        </Overlay>
+
+      </LayersControl>
+
+
+
+
       <LocationMarker />
       {myCoordinates.latitude !== null && myCoordinates.longitude !== null && (
         <Marker
