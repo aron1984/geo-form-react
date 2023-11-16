@@ -8,7 +8,7 @@ export const About = () => {
   const { loadingSpinner } = useGeoStore();
   return (
     <Layout title="about" subtitle="Sobre el proyecto">
-      <div className="flex relative top-10 md:top-20  flex-col w-full h-auto p-5 md:w-824 m-auto">
+      <div className="flex relative top-10 md:top-20  flex-col w-full h-auto pb-16 pt-5 md:w-824 m-auto">
         <h3 className="text-slate-800 text-xl font-bold mt-5 md:mt-10">
           React Geo Form.
         </h3>

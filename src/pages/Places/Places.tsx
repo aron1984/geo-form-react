@@ -99,7 +99,7 @@ export const Places = () => {
 
   return (
     <Layout title="places" subtitle="Mis lugares">
-      <div className="flex flex-col absolute top-24 md:top-40 w-full justify-center items-center">
+      <div className="flex flex-col absolute top-24 md:top-40 w-full justify-center items-center pb-16">
         <ListLocation
           data={locations}
           isLogged={isLogged}

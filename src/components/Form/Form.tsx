@@ -216,7 +216,7 @@ export const Form = () => {
 
   return (
     <>
-      <div className="flex w-full flex-col bg-slate-600 justify-center py-10 md:py-20 px-10 gap-2 absolute top-630 md:top-824">
+      <div className="flex w-full flex-col bg-slate-600 justify-center pt-10 pb-16 md:py-20 px-10 gap-2 absolute top-630 md:top-824">
         <h3 className="font-bold text-base md:text-3xl text-gray-100">
           Formulario
         </h3>
