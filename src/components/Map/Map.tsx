@@ -13,6 +13,7 @@ import "leaflet/dist/leaflet.css";
 import { getGeolocs } from "../../../firebase";
 import { useGeoStore } from "../../store/store";
 import {IDataFirebase} from "../../utils/interfaces.ts";
+import Control from "react-leaflet-custom-control";
 
 interface IGeoData {
   description: string;
@@ -158,6 +159,16 @@ export const Map = () => {
       style={{ height: "80vh" }}
       id="map"
     >
+      <Control position='topleft'>
+        <button
+          style={{width: '34px', height: '34px', borderRadius: '4px'}}
+          onClick={() => console.log('Custom Button')}
+          className='flex items-center justify-center bg-slate-50 border-neutral-400 border-2 cursor-pointer'
+        >
+         <img src='/img/descarga.png' width={20} height={20}/>
+        </button>
+
+      </Control>
       <LayersControl position="topright" {...layersControlProps}>
         <BaseLayer checked name="OpenStreetMap">
           <TileLayer
