@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import {useEffect, useRef, useState} from "react";
 import L, { LatLngExpression } from "leaflet";
 import {
+  LayerGroup,
+  LayersControl, LayersControlProps,
   MapContainer,
   Marker,
   Popup,
@@ -11,6 +13,8 @@ import "leaflet/dist/leaflet.css";
 import { getGeolocs } from "../../../firebase";
 import { useGeoStore } from "../../store/store";
 import {IDataFirebase} from "../../utils/interfaces.ts";
+import Control from "react-leaflet-custom-control";
+import * as htmlToImage from 'html-to-image';
 
 interface IGeoData {
   description: string;
@@ -19,11 +23,47 @@ interface IGeoData {
   name: string;
 }
 
+interface LayersControlWithClassNameProps extends LayersControlProps {
+  className?: string;
+}
+
+
 export const Map = () => {
   const { myCoordinates, setMyPosition, setCoordinates, coordinates } =
     useGeoStore();
   const [geoData, setgeoData] = useState([]);
   const [storedData, setStoredData] = useState([])
+
+  const printRef = useRef<HTMLDivElement>(null);
+
+  const handleDownloadPng = async () => {
+    const element = printRef.current;
+
+    if (!element) {
+      console.error("El elemento no está definido.");
+      return;
+    }
+
+    try {
+      const dataUrl = await htmlToImage.toPng(element);
+
+      const link = document.createElement('a');
+      link.href = dataUrl;
+      link.download = 'print.png';
+
+      link.click();
+    } catch (error) {
+      console.error("Error al capturar la imagen:", error);
+    }
+  };
+
+  const { BaseLayer } = LayersControl;
+
+  const layersControlProps: LayersControlWithClassNameProps = {
+    position: 'topright',
+    className: 'bg-red',
+  };
+
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getGeolocs().then((res: any) => {
@@ -135,6 +175,9 @@ export const Map = () => {
   }
 
   return (
+      <div ref={printRef}>
+
+
     <MapContainer
       center={positionX}
       zoom={13}
@@ -142,42 +185,91 @@ export const Map = () => {
       className="relative top-10 md:top-20 w-full z-0"
       style={{ height: "80vh" }}
       id="map"
+      // ref={printRef}
     >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
+      <Control position='topleft'>
+        <button
+          style={{width: '34px', height: '34px', borderRadius: '4px'}}
+          onClick={handleDownloadPng}
+          className='flex items-center justify-center bg-slate-50 border-neutral-400 border-2 cursor-pointer'
+        >
+         <img src='/img/descarga.png' width={20} height={20}/>
+        </button>
+
+      </Control>
+      <LayersControl position="topright" {...layersControlProps}>
+        <BaseLayer checked name="OpenStreetMap">
+          <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+        </BaseLayer>
+
+        <BaseLayer name="Dark">
+          <TileLayer
+              attribution='&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
+          />
+        </BaseLayer>
+
+        {/* Capas adicionales (overlays) si las necesitas */}
+        <BaseLayer name="Satélite">
+          <TileLayer
+              attribution='Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+              url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+          />
+        </BaseLayer>
+
+        <LayersControl.Overlay checked name="Puntos DB">
+          <LayerGroup>
+            <div className="overlay-content">
+              {/* Renderizar puntos en el mapa */}
+              {geoData &&
+                  geoData.map((mark: IGeoData, index) => (
+                      <Marker
+                          key={index}
+                          position={[parseFloat(mark?.lat), parseFloat(mark?.lng)]}
+                          icon={customIcon}
+                      >
+                        <Popup>{mark.description}</Popup>
+                      </Marker>
+                  ))}
+            </div>
+          </LayerGroup>
+        </LayersControl.Overlay>
+
+        <LayersControl.Overlay checked name="Puntos User">
+          <LayerGroup>
+            <div className="overlay-content">
+              {storedData &&
+                  storedData.map((mark: IDataFirebase, index) => (
+                      <Marker
+                          key={index}
+                          position={[parseFloat(mark?.fLat), parseFloat(mark?.fLng)]}
+                          icon={customIconStorage}
+                      >
+                        <Popup>{mark.fDes}</Popup>
+                      </Marker>
+                  ))}
+            </div>
+          </LayerGroup>
+        </LayersControl.Overlay>
+
+      </LayersControl>
+
       <LocationMarker />
       {myCoordinates.latitude !== null && myCoordinates.longitude !== null && (
         <Marker
           position={[myCoordinates.latitude, myCoordinates.longitude]}
           icon={customCurrentIcon}
         >
-          <Popup>You are here!</Popup>
+          <Popup>
+            <span>Estas son tus coordenadas</span><br></br>
+            <span className='mt-0'>Lat: {myCoordinates.latitude}  Lng: {myCoordinates.longitude}</span>
+          </Popup>
         </Marker>
       )}
-
-      {geoData &&
-        geoData.map((mark: IGeoData, index) => (
-          <Marker
-            key={index}
-            position={[parseFloat(mark?.lat), parseFloat(mark?.lng)]}
-            icon={customIcon}
-          >
-            <Popup>{mark.description}</Popup>
-          </Marker>
-        ))}
-
-      {storedData &&
-          storedData.map((mark: IDataFirebase, index) => (
-              <Marker
-                  key={index}
-                  position={[parseFloat(mark?.fLat), parseFloat(mark?.fLng)]}
-                  icon={customIconStorage}
-              >
-                <Popup>{mark.fDes}</Popup>
-              </Marker>
-          ))}
     </MapContainer>
+      </div>
   );
 };
