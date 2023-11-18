@@ -1,4 +1,4 @@
-import { useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import L, { LatLngExpression } from "leaflet";
 import {
   LayerGroup,
@@ -14,6 +14,7 @@ import { getGeolocs } from "../../../firebase";
 import { useGeoStore } from "../../store/store";
 import {IDataFirebase} from "../../utils/interfaces.ts";
 import Control from "react-leaflet-custom-control";
+import * as htmlToImage from 'html-to-image';
 
 interface IGeoData {
   description: string;
@@ -32,6 +33,29 @@ export const Map = () => {
     useGeoStore();
   const [geoData, setgeoData] = useState([]);
   const [storedData, setStoredData] = useState([])
+
+  const printRef = useRef<HTMLDivElement>(null);
+
+  const handleDownloadPng = async () => {
+    const element = printRef.current;
+
+    if (!element) {
+      console.error("El elemento no está definido.");
+      return;
+    }
+
+    try {
+      const dataUrl = await htmlToImage.toPng(element);
+
+      const link = document.createElement('a');
+      link.href = dataUrl;
+      link.download = 'print.png';
+
+      link.click();
+    } catch (error) {
+      console.error("Error al capturar la imagen:", error);
+    }
+  };
 
   const { BaseLayer } = LayersControl;
 
@@ -151,6 +175,9 @@ export const Map = () => {
   }
 
   return (
+      <div ref={printRef}>
+
+
     <MapContainer
       center={positionX}
       zoom={13}
@@ -158,11 +185,12 @@ export const Map = () => {
       className="relative top-10 md:top-20 w-full z-0"
       style={{ height: "80vh" }}
       id="map"
+      // ref={printRef}
     >
       <Control position='topleft'>
         <button
           style={{width: '34px', height: '34px', borderRadius: '4px'}}
-          onClick={() => console.log('Custom Button')}
+          onClick={handleDownloadPng}
           className='flex items-center justify-center bg-slate-50 border-neutral-400 border-2 cursor-pointer'
         >
          <img src='/img/descarga.png' width={20} height={20}/>
@@ -242,5 +270,6 @@ export const Map = () => {
         </Marker>
       )}
     </MapContainer>
+      </div>
   );
 };
