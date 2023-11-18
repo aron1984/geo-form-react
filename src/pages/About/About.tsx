@@ -3,12 +3,17 @@ import Spinner from "../../components/Spinner/Spinner";
 import { Layout } from "../../components/layout";
 import { useGeoStore } from "../../store/store";
 import dataAbout from "./dataAbout";
+import {CheckEmpty} from "../../components/CheckImage/CheckImage.tsx";
 
 export const About = () => {
   const { loadingSpinner } = useGeoStore();
+
+
+
+
   return (
     <Layout title="about" subtitle="Sobre el proyecto">
-      <div className="flex relative top-10 md:top-20  flex-col w-full h-auto pb-16 pt-5 md:w-824 m-auto">
+      <div className="flex relative top-10 md:top-20  flex-col w-full h-auto pb-16 pt-5 md:w-824 m-auto p-4">
         <h3 className="text-slate-800 text-xl font-bold mt-5 md:mt-10">
           React Geo Form.
         </h3>
@@ -33,15 +38,16 @@ export const About = () => {
           </h4>
           <p>Para próximas versiones, las siguientes actualizaciones:</p>
           <ul>
-            <li>- Layouts (satelite, dark).</li>
-            <li>- Dark / Light mode.</li>
-            <li>- Visualizción de localizaciónes por usuario.</li>
-            <li>- Guardar imagenes en el registro de la localiación.</li>
-            <li>
-              - Visualizción de localizaciónes gernerales para todos los
-              perfiles.
+            <li className='flex items-start justify-start mb-1'><CheckEmpty check/> <b>Layouts (satelite, dark).</b></li>
+            <li className='flex items-start justify-start mb-1'><CheckEmpty check /> <b>Visualizción de localizaciónes por usuario (local).</b></li>
+            <li className='flex items-start justify-start mb-1'><CheckEmpty check/> <b>Descarga de captura de imgaen desde control del mapa</b></li>
+            <li className='flex items-start justify-start mb-1'>
+              <CheckEmpty check /> <b>Visualizción de localizaciónes gernerales para todos los
+              perfiles.</b>
             </li>
-            <li>- Visualizción de localizaciónes por usuario.</li>
+            <li className='flex items-start justify-start mb-1'><CheckEmpty /> Dark / Light mode.</li>
+            <li className='flex items-start justify-start mb-1'><CheckEmpty /> Guardar imagenes en el registro de la localiación.</li>
+            <li className='flex items-start justify-start mb-1'><CheckEmpty /> Visualizción de localizaciónes por usuario.</li>
           </ul>
         </article>
         <hr style={{ border: "solid 1px gray" }} />
