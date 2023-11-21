@@ -1,6 +1,6 @@
 import { IItems } from './interfaces';
 
-export const VERSION = 'v2.1.0'
+export const VERSION = 'v2.1.1'
 export const itemsNavbar:IItems[] = [
   {
     id: "home",
