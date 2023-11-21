@@ -38,16 +38,16 @@ export const About = () => {
           </h4>
           <p>Para próximas versiones, las siguientes actualizaciones:</p>
           <ul>
-            <li className='flex items-start justify-start mb-1'><CheckEmpty check/> <b>Layouts (satelite, dark).</b></li>
-            <li className='flex items-start justify-start mb-1'><CheckEmpty check /> <b>Visualizción de localizaciónes por usuario (local).</b></li>
-            <li className='flex items-start justify-start mb-1'><CheckEmpty check/> <b>Descarga de captura de imgaen desde control del mapa</b></li>
-            <li className='flex items-start justify-start mb-1'>
+            <li className='flex items-start md:items-center justify-start mb-1'><CheckEmpty check/> <b>Layouts (satelite, dark).</b></li>
+            <li className='flex items-start md:items-center justify-start mb-1'><CheckEmpty check /> <b>Visualizción de localizaciónes por usuario (local).</b></li>
+            <li className='flex items-start md:items-center justify-start mb-1'><CheckEmpty check/> <b>Descarga de captura de imgaen desde control del mapa</b></li>
+            <li className='flex items-start md:items-center justify-start mb-1'>
               <CheckEmpty check /> <b>Visualizción de localizaciónes gernerales para todos los
               perfiles.</b>
             </li>
-            <li className='flex items-start justify-start mb-1'><CheckEmpty /> Dark / Light mode.</li>
-            <li className='flex items-start justify-start mb-1'><CheckEmpty /> Guardar imagenes en el registro de la localiación.</li>
-            <li className='flex items-start justify-start mb-1'><CheckEmpty /> Visualizción de localizaciónes por usuario.</li>
+            <li className='flex items-start md:items-center justify-start mb-1'><CheckEmpty /> Dark / Light mode.</li>
+            <li className='flex items-start md:items-center justify-start mb-1'><CheckEmpty /> Guardar imagenes en el registro de la localiación.</li>
+            <li className='flex items-start md:items-center justify-start mb-1'><CheckEmpty /> Visualizción de localizaciónes por usuario.</li>
           </ul>
         </article>
         <hr style={{ border: "solid 1px gray" }} />
