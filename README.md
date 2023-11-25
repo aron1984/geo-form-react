@@ -2,16 +2,16 @@
 
 <!-- PROJECT LOGO -->
 <br />
-<div align="center">
+<div>
   <a href="#">
     <img src="src/assets/img/g-logo_myv.svg" alt="Logo" width="80" height="80">
   </a>
 
 <h3 align="center">GEOFORM REACT v3.0.0</h3>
 
-  <p align="center">Some variants of the logo.</p>
+  <p>Some variants of the logo.</p>
 
-   <img src="src/assets/img/myvlogo-logos_variantes.svg" height="60">
+   <img src="src/assets/img/myvlogo-logos_variantes.svg" height="60" alt="">
 </div>
 
 <!-- ABOUT THE PROJECT -->
@@ -92,15 +92,15 @@ Below, I share a series of steps and features for you to install the project. Fe
 
 ## Usage
 
-<img src="https://res.cloudinary.com/dzvvin1g2/image/upload/v1697684344/app-location/geoform_1_punpax.jpg" height='300' />
-<img src="https://res.cloudinary.com/dzvvin1g2/image/upload/v1697684344/app-location/geoform_2_mkunhy.jpg" height='300' />
-<img src="https://res.cloudinary.com/dzvvin1g2/image/upload/v1697684344/app-location/geoform_3_gva5lv.jpg" height='300' />
-<img src="https://res.cloudinary.com/dzvvin1g2/image/upload/v1697684344/app-location/geoform_4_ldpsc6.jpg" height='300' />
-<img src="https://res.cloudinary.com/dzvvin1g2/image/upload/v1697684344/app-location/geoform_5_te2kag.jpg" height='300' />
-<img src="https://res.cloudinary.com/dzvvin1g2/image/upload/v1700928270/app-location/noztpubuisozs75aozsi.png" height='300' />
-<img src="https://res.cloudinary.com/dzvvin1g2/image/upload/v1700928270/app-location/wqykpgnvvrcqn0ljztcz.png" height='300' />
-<img src="https://res.cloudinary.com/dzvvin1g2/image/upload/v1700928270/app-location/ffvmxde0cgr6n6dyluo4.png" height='300' />
-<img src="https://res.cloudinary.com/dzvvin1g2/image/upload/v1700928528/app-location/geofrom9_wg6mwb.png" height='300' />
+<img alt="" src="https://res.cloudinary.com/dzvvin1g2/image/upload/v1697684344/app-location/geoform_1_punpax.jpg" height='300' />
+<img alt="" src="https://res.cloudinary.com/dzvvin1g2/image/upload/v1697684344/app-location/geoform_2_mkunhy.jpg" height='300' />
+<img alt="" src="https://res.cloudinary.com/dzvvin1g2/image/upload/v1697684344/app-location/geoform_3_gva5lv.jpg" height='300' />
+<img alt="" src="https://res.cloudinary.com/dzvvin1g2/image/upload/v1697684344/app-location/geoform_4_ldpsc6.jpg" height='300' />
+<img alt="" src="https://res.cloudinary.com/dzvvin1g2/image/upload/v1697684344/app-location/geoform_5_te2kag.jpg" height='300' />
+<img alt="" src="https://res.cloudinary.com/dzvvin1g2/image/upload/v1700928270/app-location/noztpubuisozs75aozsi.png" height='300' />
+<img alt="" src="https://res.cloudinary.com/dzvvin1g2/image/upload/v1700928270/app-location/wqykpgnvvrcqn0ljztcz.png" height='300' />
+<img alt="" src="https://res.cloudinary.com/dzvvin1g2/image/upload/v1700928270/app-location/ffvmxde0cgr6n6dyluo4.png" height='300' />
+<img alt="" src="https://res.cloudinary.com/dzvvin1g2/image/upload/v1700928528/app-location/geofrom9_wg6mwb.png" height='300' />
 
 <!-- ROADMAP -->
 
@@ -148,6 +148,6 @@ Page demo - [https://geo-form-react.vercel.app/](https://geo-form-react.vercel.a
 
 Your Name - [linkedin](https://www.linkedin.com/in/alejandro-ronconi/) - ronconialejandro@gmail.com
 
-<img src="src/assets/img/g-myvsolutions.svg" height="40">
+<img alt="" src="src/assets/img/g-myvsolutions.svg" height="40">
 
-<p align="right"><a href="#top">TO TOP</a></p>
+<p><a href="#top">TO TOP</a></p>
