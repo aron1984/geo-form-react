@@ -7,10 +7,10 @@
     <img src="src/assets/img/g-logo_myv.svg" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">GEOFORM REACT v2.0.0</h3>
+<h3 align="center">GEOFORM REACT v3.0.0</h3>
 
   <p align="center">Some variants of the logo.</p>
-    
+
    <img src="src/assets/img/myvlogo-logos_variantes.svg" height="60">
 </div>
 
@@ -97,6 +97,10 @@ Below, I share a series of steps and features for you to install the project. Fe
 <img src="https://res.cloudinary.com/dzvvin1g2/image/upload/v1697684344/app-location/geoform_3_gva5lv.jpg" height='300' />
 <img src="https://res.cloudinary.com/dzvvin1g2/image/upload/v1697684344/app-location/geoform_4_ldpsc6.jpg" height='300' />
 <img src="https://res.cloudinary.com/dzvvin1g2/image/upload/v1697684344/app-location/geoform_5_te2kag.jpg" height='300' />
+<img src="https://res.cloudinary.com/dzvvin1g2/image/upload/v1700928270/app-location/noztpubuisozs75aozsi.png" height='300' />
+<img src="https://res.cloudinary.com/dzvvin1g2/image/upload/v1700928270/app-location/wqykpgnvvrcqn0ljztcz.png" height='300' />
+<img src="https://res.cloudinary.com/dzvvin1g2/image/upload/v1700928270/app-location/ffvmxde0cgr6n6dyluo4.png" height='300' />
+<img src="https://res.cloudinary.com/dzvvin1g2/image/upload/v1700928528/app-location/geofrom9_wg6mwb.png" height='300' />
 
 <!-- ROADMAP -->
 
@@ -108,18 +112,27 @@ Below, I share a series of steps and features for you to install the project. Fe
 - [x] Add Page List
 - [x] Add Login in Navbar
 - [x] Add user category for use the form (admin, client, visitor)
-   - [x] Rol admin: add, edit and delete geolocation
-   - [x] Rol visitor: navigate, read only geolocations
-   - [x] Rol client: navigate, read only geolocations
-      - [ ] View and admin only your geolocations
+    - [x] Rol admin: add, edit and delete geolocation
+    - [x] Rol visitor: navigate, read only geolocations
+    - [x] Rol client: navigate, read only geolocations
+        - [ ] View and admin only your geolocations
 - [x] Save in sessionStorage locations when profile si 'client or visitor'
+- [x] Add layers map
+- [x] Add LayerControl
+    - [x] Add base map: Satelite, Dark
+    - [x] Add show control pints layers
+- [x] Add Button acttion download print map
+- [x] Add visitor mode, save data in the sessionStorage
+
+---
+Next:
+
 - [ ] Add light & dark mode app
 - [ ] Add browser
-- [ ] Add layers map
 - [ ] Add form state off line
 - [ ] Multi-language Support
-  - [ ] English
-  - [x] Spanish
+    - [ ] English
+    - [x] Spanish
 
 <!-- CONTRIBUTING -->
 
