@@ -1,13 +1,13 @@
-import { FC } from "react";
-import { IGeoData, IUser } from "../../utils/interfaces";
-import { LocItem } from "./LocItem";
+import { FC } from 'react';
+import { IGeoData, IUser } from '../../utils/interfaces';
+import { LocItem } from './LocItem';
 
 interface IData {
   data: IGeoData[] | unknown[] | null;
   deleteLocation: (id: string) => void;
   modifyLocation: (id: string) => void;
   isLogged: boolean;
-  user: IUser
+  user: IUser;
 }
 
 export const ListLocation: FC<IData> = ({
@@ -15,7 +15,7 @@ export const ListLocation: FC<IData> = ({
   deleteLocation,
   modifyLocation,
   isLogged,
-  user
+  user,
 }) => {
   return (
     <div className="flex flex-row w-full justify-center">

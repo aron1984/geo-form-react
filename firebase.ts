@@ -1,5 +1,5 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
+import { initializeApp } from 'firebase/app';
 import {
   FieldValue,
   addDoc,
@@ -12,7 +12,7 @@ import {
   onSnapshot,
   query,
   updateDoc,
-} from "firebase/firestore";
+} from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
@@ -36,7 +36,7 @@ interface IGeoloc {
   fDes: string;
 }
 const saveGeoloc = (geoloc: IGeoloc) => {
-  addDoc(collection(db, "geoloc"), {
+  addDoc(collection(db, 'geoloc'), {
     lat: geoloc.fLat,
     lng: geoloc.fLng,
     name: geoloc.fNam,
@@ -46,7 +46,7 @@ const saveGeoloc = (geoloc: IGeoloc) => {
 };
 
 const getGeolocs = async () => {
-  const queryDB = query(collection(db, "geoloc"));
+  const queryDB = query(collection(db, 'geoloc'));
   const docs = await getDocs(queryDB);
   const allRegisters: unknown[] = [];
   docs.forEach((doc: { data: () => unknown }) => {
@@ -58,12 +58,12 @@ const getGeolocs = async () => {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const onGetGeoloc = (callback: any) =>
-  onSnapshot(collection(db, "geoloc"), callback);
+  onSnapshot(collection(db, 'geoloc'), callback);
 
-const deleteGeoloc = (id: string) => deleteDoc(doc(db, "geoloc", id));
+const deleteGeoloc = (id: string) => deleteDoc(doc(db, 'geoloc', id));
 
 const getGeoloc = async (id: string) => {
-  const data = await getDoc(doc(db, "geoloc", id));
+  const data = await getDoc(doc(db, 'geoloc', id));
   const geolocA = data.data();
 
   return geolocA;
@@ -71,9 +71,9 @@ const getGeoloc = async (id: string) => {
 
 const updateGeoloc = (
   id: string,
-  newFields: { [x: string]: FieldValue | Partial<unknown> | undefined }
+  newFields: { [x: string]: FieldValue | Partial<unknown> | undefined },
 ) =>
-  updateDoc(doc(db, "geoloc", id), {
+  updateDoc(doc(db, 'geoloc', id), {
     lat: newFields.fLat,
     lng: newFields.fLng,
     name: newFields.fNam,

@@ -1,4 +1,4 @@
-import { IModalType } from "../../utils/interfaces";
+import { IModalType } from '../../utils/interfaces';
 
 interface IModal {
   onPrimaryAction: () => void;
@@ -18,26 +18,29 @@ const Modal: React.FC<IModal> = ({
   data,
 }) => {
   const backgroundType = (type: string) => {
-    let customStyle = "bg-blue-500";
-    if (type === "success") customStyle = "bg-green-400 hover:bg-green-600";
-    if (type === "alert") customStyle = "bg-yellow-400 hover:bg-yellow-600";
-    if (type === "error") customStyle = "bg-red-400 hover:bg-red-600";
+    let customStyle = 'bg-blue-500';
+    if (type === 'success') customStyle = 'bg-green-400 hover:bg-green-600';
+    if (type === 'alert') customStyle = 'bg-yellow-400 hover:bg-yellow-600';
+    if (type === 'error') customStyle = 'bg-red-400 hover:bg-red-600';
 
     return customStyle;
   };
 
   const customIcon = (type: string) => {
-    let icon = "/img/success.svg";
-    if (type === "error") icon = "/img/error.svg";
-    if (type === "alert") icon = "/img/warning.png";
+    let icon = '/img/success.svg';
+    if (type === 'error') icon = '/img/error.svg';
+    if (type === 'alert') icon = '/img/warning.png';
     return icon;
   };
 
   const customBorder = (type: string) => {
-    let border = "border-blue-400  hover:bg-blue-600";
-    if (type === "success") border = "border-green-400 text-green-400 hover:bg-green-100";
-    if (type === "alert") border = "border-yellow-400 text-yellow-800 hover:bg-yellow-100";
-    if (type === "error") border = "border-red-400 text-red-400 hover:bg-red-100";
+    let border = 'border-blue-400  hover:bg-blue-600';
+    if (type === 'success')
+      border = 'border-green-400 text-green-400 hover:bg-green-100';
+    if (type === 'alert')
+      border = 'border-yellow-400 text-yellow-800 hover:bg-yellow-100';
+    if (type === 'error')
+      border = 'border-red-400 text-red-400 hover:bg-red-100';
     return border;
   };
 
@@ -57,8 +60,10 @@ const Modal: React.FC<IModal> = ({
           <button
             onClick={onPrimaryAction}
             className={`${backgroundType(
-              data.type
-            )} text-white px-4 py-2 rounded-md border-gre w-72 ${!data.textSecondaryButton ? 'md:w-80' : 'md:w-40'}`}
+              data.type,
+            )} text-white px-4 py-2 rounded-md border-gre w-72 ${
+              !data.textSecondaryButton ? 'md:w-80' : 'md:w-40'
+            }`}
           >
             {data.textButton}
           </button>
@@ -67,7 +72,7 @@ const Modal: React.FC<IModal> = ({
             <button
               onClick={onSecondaryAction}
               className={`bg-white ${customBorder(
-                data.type
+                data.type,
               )} border-2  px-4 py-2 rounded-md hover:bg-blue-600 w-72 md:w-40`}
             >
               {data.textSecondaryButton}

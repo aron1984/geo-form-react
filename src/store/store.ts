@@ -1,6 +1,6 @@
-import { create } from "zustand";
-import { mountStoreDevtool } from "simple-zustand-devtools";
-import { IDataFirebase, IUser } from "../utils/interfaces";
+import { create } from 'zustand';
+import { mountStoreDevtool } from 'simple-zustand-devtools';
+import { IDataFirebase, IUser } from '../utils/interfaces';
 
 interface GeoState {
   user: IUser;
@@ -44,22 +44,22 @@ interface GeoState {
 
 export const useGeoStore = create<GeoState>()((set) => ({
   user: {
-    name: "",
-    profile: "visitor",
+    name: '',
+    profile: 'visitor',
   },
   isLogged: false,
   coordinates: {
-    latitude: "",
-    longitude: "",
+    latitude: '',
+    longitude: '',
   },
   loadingSpinner: false,
   formDataStore: {
-    fLat: "",
-    fLng: "",
-    fNam: "",
-    fDes: "",
+    fLat: '',
+    fLng: '',
+    fNam: '',
+    fDes: '',
   },
-  selectedDocId: "",
+  selectedDocId: '',
   setIsLoggedIn: () =>
     set(() => ({
       isLogged: true,
@@ -129,6 +129,6 @@ export const useGeoStore = create<GeoState>()((set) => ({
     })),
 }));
 
-if (process.env.NODE_ENV === "development") {
-  mountStoreDevtool("Store", useGeoStore);
+if (process.env.NODE_ENV === 'development') {
+  mountStoreDevtool('Store', useGeoStore);
 }

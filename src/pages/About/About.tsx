@@ -1,15 +1,12 @@
-import { Link } from "react-router-dom";
-import Spinner from "../../components/Spinner/Spinner";
-import { Layout } from "../../components/layout";
-import { useGeoStore } from "../../store/store";
-import dataAbout from "./dataAbout";
-import {CheckEmpty} from "../../components/CheckImage/CheckImage.tsx";
+import { Link } from 'react-router-dom';
+import Spinner from '../../components/Spinner/Spinner';
+import { Layout } from '../../components/layout';
+import { useGeoStore } from '../../store/store';
+import dataAbout from './dataAbout';
+import { CheckEmpty } from '../../components/CheckImage/CheckImage.tsx';
 
 export const About = () => {
   const { loadingSpinner } = useGeoStore();
-
-
-
 
   return (
     <Layout title="about" subtitle="Sobre el proyecto">
@@ -38,19 +35,36 @@ export const About = () => {
           </h4>
           <p>Para próximas versiones, las siguientes actualizaciones:</p>
           <ul>
-            <li className='flex items-start md:items-center justify-start mb-1'><CheckEmpty check/> <b>Layouts (satelite, dark).</b></li>
-            <li className='flex items-start md:items-center justify-start mb-1'><CheckEmpty check /> <b>Visualizción de localizaciónes por usuario (local).</b></li>
-            <li className='flex items-start md:items-center justify-start mb-1'><CheckEmpty check/> <b>Descarga de captura de imgaen desde control del mapa</b></li>
-            <li className='flex items-start md:items-center justify-start mb-1'>
-              <CheckEmpty check /> <b>Visualizción de localizaciónes gernerales para todos los
-              perfiles.</b>
+            <li className="flex items-start md:items-center justify-start mb-1">
+              <CheckEmpty check /> <b>Layouts (satelite, dark).</b>
             </li>
-            <li className='flex items-start md:items-center justify-start mb-1'><CheckEmpty /> Dark / Light mode.</li>
-            <li className='flex items-start md:items-center justify-start mb-1'><CheckEmpty /> Guardar imagenes en el registro de la localiación.</li>
-            <li className='flex items-start md:items-center justify-start mb-1'><CheckEmpty /> Visualizción de localizaciónes por usuario.</li>
+            <li className="flex items-start md:items-center justify-start mb-1">
+              <CheckEmpty check />{' '}
+              <b>Visualizción de localizaciónes por usuario (local).</b>
+            </li>
+            <li className="flex items-start md:items-center justify-start mb-1">
+              <CheckEmpty check />{' '}
+              <b>Descarga de captura de imgaen desde control del mapa</b>
+            </li>
+            <li className="flex items-start md:items-center justify-start mb-1">
+              <CheckEmpty check />{' '}
+              <b>
+                Visualizción de localizaciónes gernerales para todos los
+                perfiles.
+              </b>
+            </li>
+            <li className="flex items-start md:items-center justify-start mb-1">
+              <CheckEmpty /> Dark / Light mode.
+            </li>
+            <li className="flex items-start md:items-center justify-start mb-1">
+              <CheckEmpty /> Guardar imagenes en el registro de la localiación.
+            </li>
+            <li className="flex items-start md:items-center justify-start mb-1">
+              <CheckEmpty /> Visualizción de localizaciónes por usuario.
+            </li>
           </ul>
         </article>
-        <hr style={{ border: "solid 1px gray" }} />
+        <hr style={{ border: 'solid 1px gray' }} />
         <section className="mt-10">
           <ul className="flex flex-row flex-wrap gap-3 justify-center">
             {dataAbout.tools.map((tool: { name: string; link: string }) => (
@@ -66,7 +80,7 @@ export const About = () => {
           </ul>
         </section>
       </div>
-      {loadingSpinner && <Spinner data={"Loadings"} color="delete" />}
+      {loadingSpinner && <Spinner data={'Loadings'} color="delete" />}
     </Layout>
   );
 };

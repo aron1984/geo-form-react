@@ -1,4 +1,4 @@
-export type IPathId = "home" | "about" | "places" | "notfound";
+export type IPathId = 'home' | 'about' | 'places' | 'notfound';
 
 export interface IItems {
   id: IPathId;
@@ -6,7 +6,7 @@ export interface IItems {
 }
 [];
 
-export type IModalType = "success" | "error" | "alert";
+export type IModalType = 'success' | 'error' | 'alert';
 
 // id : este id es del documento de Firestore, necesario para poder elimniar una localizacion en particular
 // No viene en el objeto, sino que se lo agrego en Places, donde seteo un nuevo objeto que si lo tiene y
@@ -33,17 +33,17 @@ export interface DocumentWithId {
 }
 
 export interface IColorSpinner {
-  color: "save" | "delete" | "edit";
+  color: 'save' | 'delete' | 'edit';
 }
 
-export type ILoaderColor = "save" | "delete" | "edit";
+export type ILoaderColor = 'save' | 'delete' | 'edit';
 
 export interface IUser {
-  name: string | null
-  profile: "admin" | "client" | "visitor" | undefined
+  name: string | null | undefined;
+  profile: 'admin' | 'client' | 'visitor' | undefined;
 }
 
 export interface ILogin {
-  email: string | null
-  password: string | null
+  email: string | null;
+  password: string | null;
 }
