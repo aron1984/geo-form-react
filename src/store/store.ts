@@ -27,7 +27,7 @@ interface GeoState {
 
   selectedDocId: string;
 
-  setUser: (user: IUser | null) => void;
+  setUser: (user: IUser) => void;
   setIsLoggedIn: () => void;
   setIsLoggedOut: () => void;
   setSelectedDocId: (id: string) => void;
