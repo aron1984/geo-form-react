@@ -43,7 +43,7 @@ export const Navbar: FC<Props> = ({items}) => {
       setUser({name: email, profile: presenter.userProfile(email), uid});
       setIsLoggedIn();
     }
-  }, [auth.currentUser]);
+  }, [auth.currentUser, setIsLoggedIn, setUser]);
 
   const login = () => {
     setShowLoadingSpiner(true);

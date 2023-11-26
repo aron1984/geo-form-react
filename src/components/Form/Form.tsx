@@ -222,7 +222,7 @@ export const Form = () => {
       latitude: coordinates?.latitude || '',
       longitude: coordinates?.longitude || '',
     });
-  }, [coordinates?.latitude]);
+  }, [coordinates?.latitude, coordinates?.longitude]);
 
   return (
     <>

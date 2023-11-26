@@ -1,18 +1,18 @@
 // Import the functions you need from the SDKs you need
 import {initializeApp} from 'firebase/app';
 import {
-  FieldValue,
   addDoc,
   collection,
   deleteDoc,
   doc,
-  where,
+  FieldValue,
   getDoc,
   getDocs,
   getFirestore,
   onSnapshot,
   query,
   updateDoc,
+  where,
 } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -71,14 +71,13 @@ const onGetGeoloc = (userUid: string, callback: any) => {
   return onSnapshot(locationsQuery, callback);
 };
 
+// TODO: TENGO QUE SEGUIR ADAPTANDO PARA BORRAR PUNTOS DEL USUARIO Y ARREGLAR ESETE TEMA ENTRE LA VISUALIZACION DEL USUARIO Y LAS LOCALIZACIONES.
 
 const deleteGeoloc = (id: string) => deleteDoc(doc(db, 'geoloc', id));
 
 const getGeoloc = async (id: string) => {
   const data = await getDoc(doc(db, 'geoloc', id));
-  const geolocA = data.data();
-
-  return geolocA;
+  return data.data();
 };
 
 const updateGeoloc = (

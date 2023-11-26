@@ -130,7 +130,7 @@ export const Places = () => {
             {storedData &&
               storedData.length !== 0 &&
               storedData?.map((data: IDataFirebase, index) => (
-                <div className="flex w-full h-28 bg-gray-300 py-2 my-2 md:my-3 shadow-md">
+                <div className="flex w-full h-28 bg-gray-300 py-2 my-2 md:my-3 shadow-md" key={index}>
                   <div className="flex flex-col items-start w-5/6 px-2 md:px-4">
                     <div className="h-8 flex items-end w-full mb-2">
                       <h5 className="text-sm m-0 font-medium">{data.fNam}</h5>
