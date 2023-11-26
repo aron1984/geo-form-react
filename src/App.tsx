@@ -12,12 +12,12 @@ function App() {
 
   return (
     <Layout title={'home'}>
-      <Map />
+      <Map/>
       <div className="flex flex-col justify-center items-center gap-5 m-auto mt-auto mb-auto h-96 p-0">
-        <Form />
+        <Form/>
       </div>
 
-      {loadingSpinner && <Spinner color="save" data={'Loadings'} />}
+      {loadingSpinner && <Spinner color="save" data={'Loadings'}/>}
     </Layout>
   );
 }

@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import L, { LatLngExpression } from 'leaflet';
+import {useEffect, useRef, useState} from 'react';
+import L, {LatLngExpression} from 'leaflet';
 import {
   LayerGroup,
   LayersControl,
@@ -11,9 +11,9 @@ import {
   useMapEvents,
 } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import { getGeolocs } from '../../../firebase';
-import { useGeoStore } from '../../store/store';
-import { IDataFirebase } from '../../utils/interfaces.ts';
+import {getGeolocs} from '../../../firebase';
+import {useGeoStore} from '../../store/store';
+import {IDataFirebase} from '../../utils/interfaces.ts';
 import Control from 'react-leaflet-custom-control';
 import * as htmlToImage from 'html-to-image';
 
@@ -29,7 +29,7 @@ interface LayersControlWithClassNameProps extends LayersControlProps {
 }
 
 export const Map = () => {
-  const { myCoordinates, setMyPosition, setCoordinates, coordinates } =
+  const {myCoordinates, setMyPosition, setCoordinates, coordinates} =
     useGeoStore();
   const [geoData, setgeoData] = useState([]);
   const [storedData, setStoredData] = useState([]);
@@ -57,7 +57,7 @@ export const Map = () => {
     }
   };
 
-  const { BaseLayer } = LayersControl;
+  const {BaseLayer} = LayersControl;
 
   const layersControlProps: LayersControlWithClassNameProps = {
     position: 'topright',
@@ -128,7 +128,7 @@ export const Map = () => {
         // map.locate()
         const popupOffset = [0.004, 0];
         popup
-          // .setLatLng(e.latlng)
+        // .setLatLng(e.latlng)
           .setLatLng([
             e.latlng.lat + popupOffset[0],
             e.latlng.lng - popupOffset[1],
@@ -183,17 +183,17 @@ export const Map = () => {
         zoom={13}
         scrollWheelZoom={false}
         className="relative top-10 md:top-20 w-full z-0"
-        style={{ height: '80vh' }}
+        style={{height: '80vh'}}
         id="map"
         // ref={printRef}
       >
         <Control position="topleft">
           <button
-            style={{ width: '34px', height: '34px', borderRadius: '4px' }}
+            style={{width: '34px', height: '34px', borderRadius: '4px'}}
             onClick={handleDownloadPng}
             className="flex items-center justify-center bg-slate-50 border-neutral-400 border-2 cursor-pointer"
           >
-            <img src="/img/descarga.png" width={20} height={20} />
+            <img src="/img/descarga.png" width={20} height={20}/>
           </button>
         </Control>
         <LayersControl position="topright" {...layersControlProps}>
@@ -258,22 +258,22 @@ export const Map = () => {
           </LayersControl.Overlay>
         </LayersControl>
 
-        <LocationMarker />
+        <LocationMarker/>
         {myCoordinates.latitude !== null &&
           myCoordinates.longitude !== null && (
-            <Marker
-              position={[myCoordinates.latitude, myCoordinates.longitude]}
-              icon={customCurrentIcon}
-            >
-              <Popup>
-                <span>Estas son tus coordenadas</span>
-                <br></br>
-                <span className="mt-0">
+          <Marker
+            position={[myCoordinates.latitude, myCoordinates.longitude]}
+            icon={customCurrentIcon}
+          >
+            <Popup>
+              <span>Estas son tus coordenadas</span>
+              <br></br>
+              <span className="mt-0">
                   Lat: {myCoordinates.latitude} Lng: {myCoordinates.longitude}
-                </span>
-              </Popup>
-            </Marker>
-          )}
+              </span>
+            </Popup>
+          </Marker>
+        )}
       </MapContainer>
     </div>
   );

@@ -6,10 +6,20 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
   ],
+  overrides: [
+    {
+      files: ['*.js', '*.jsx', '*.ts', '*.tsx'],
+      parserOptions: {
+        ecmaVersion: 2020,
+      },
+    },
+  ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  plugins: ["prettier"],
+  plugins: ['@typescript-eslint', 'prettier'],
   rules: {
-    "prettier/prettier": ["error"]
-  }
-}
+    semi: ['error', 'always'],
+    quotes: ['error', 'single'],
+    'indent': ['error', 2],
+  },
+};

@@ -1,16 +1,16 @@
-import { FC, useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { IItems } from '../../utils/interfaces';
-import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
-import { useGeoStore } from '../../store/store';
-import { ModalSign } from '../ModalSign';
-import { NavbarPresenter } from './NavbarPresenter';
+import {FC, useEffect, useState} from 'react';
+import {Link, useLocation} from 'react-router-dom';
+import {IItems} from '../../utils/interfaces';
+import {getAuth, signInWithEmailAndPassword, signOut} from 'firebase/auth';
+import {useGeoStore} from '../../store/store';
+import {ModalSign} from '../ModalSign';
+import {NavbarPresenter} from './NavbarPresenter';
 
 interface Props {
-  items: IItems[];
+  items: IItems[]
 }
 
-export const Navbar: FC<Props> = ({ items }) => {
+export const Navbar: FC<Props> = ({items}) => {
   const SUPER_USER = import.meta.env.VITE_SUPER_USER_ADMIN;
   const presenter = new NavbarPresenter(SUPER_USER);
 
@@ -40,7 +40,7 @@ export const Navbar: FC<Props> = ({ items }) => {
       // const photoURL = user.photoURL;
       // const emailVerified = user.emailVerified;
       const email = userCurrent?.email;
-      setUser({ name: email, profile: presenter.userProfile(email) });
+      setUser({name: email, profile: presenter.userProfile(email)});
       setIsLoggedIn();
     }
   }, []);
@@ -77,11 +77,10 @@ export const Navbar: FC<Props> = ({ items }) => {
 
   const logOut = () => {
     setShowLoadingSpiner(true);
-    signOut(auth)
-      .then(() => {
-        setUser({ name: '', profile: 'visitor' });
-        setIsLoggedOut();
-      })
+    signOut(auth).then(() => {
+      setUser({name: '', profile: 'visitor'});
+      setIsLoggedOut();
+    })
       .catch((error) => {
         console.error('Error al cerrar sesión: ', error);
       })
@@ -109,7 +108,7 @@ export const Navbar: FC<Props> = ({ items }) => {
             className="px-2 h-6 mr-auto md:pl-5 md:h-8"
           />
           <ul className="flex gap-2 h-full ">
-            {items.map(({ id, path }) => (
+            {items.map(({id, path}) => (
               <li
                 key={id}
                 className={
@@ -130,7 +129,7 @@ export const Navbar: FC<Props> = ({ items }) => {
             }
             alt={user.name?.length ? user.name : 'No logueado'}
             className="px-2 ml-2 md:ml-3 h-6 pl-2 md:pl-3 md:h-8"
-            style={{ borderLeft: 'solid 1px gray' }}
+            style={{borderLeft: 'solid 1px gray'}}
             onClick={handleClick}
           />
         </div>
