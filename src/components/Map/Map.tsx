@@ -29,7 +29,7 @@ interface LayersControlWithClassNameProps extends LayersControlProps {
 }
 
 export const Map = () => {
-  const {myCoordinates, setMyPosition, setCoordinates, coordinates} =
+  const {myCoordinates, setMyPosition, setCoordinates, coordinates, user} =
     useGeoStore();
   const [geoData, setgeoData] = useState([]);
   const [storedData, setStoredData] = useState([]);
@@ -66,11 +66,11 @@ export const Map = () => {
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    getGeolocs().then((res: any) => {
+    getGeolocs(user.uid).then((res: any) => {
       // console.log(res);
       setgeoData(res);
     });
-  }, []);
+  }, [user.uid]);
 
   useEffect(() => {
     const storedObject = sessionStorage.getItem('dataUser');
@@ -193,7 +193,7 @@ export const Map = () => {
             onClick={handleDownloadPng}
             className="flex items-center justify-center bg-slate-50 border-neutral-400 border-2 cursor-pointer"
           >
-            <img src="/img/descarga.png" width={20} height={20}/>
+            <img src="/img/descarga.png" width={20} height={20} alt='download'/>
           </button>
         </Control>
         <LayersControl position="topright" {...layersControlProps}>

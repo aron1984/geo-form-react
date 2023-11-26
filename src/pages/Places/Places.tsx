@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Layout } from '../../components/layout';
 import { useNavigate } from 'react-router';
 
-import { onGetGeoloc, deleteGeoloc, getGeolocs } from '../../../firebase';
+import { onGetGeoloc, deleteGeoloc } from '../../../firebase';
 import {
   DocumentWithId,
   IDataFirebase,
@@ -38,9 +38,9 @@ export const Places = () => {
 
   useEffect(() => {
     async function fetchLocations() {
-      await getGeolocs();
+      // await getGeolocs(user.uid);
       try {
-        onGetGeoloc((querySnapshot: DocumentWithId[]) => {
+        onGetGeoloc(user.uid, (querySnapshot: DocumentWithId[]) => {
           const locations: IGeoData[] = [];
           querySnapshot.forEach((doc: DocumentWithId) => {
             const geoloc = doc.data();
@@ -130,7 +130,7 @@ export const Places = () => {
             {storedData &&
               storedData.length !== 0 &&
               storedData?.map((data: IDataFirebase, index) => (
-                <div className="flex w-full h-28 bg-gray-300 py-2 my-2 md:my-3 shadow-md">
+                <div className="flex w-full h-28 bg-gray-300 py-2 my-2 md:my-3 shadow-md" key={index}>
                   <div className="flex flex-col items-start w-5/6 px-2 md:px-4">
                     <div className="h-8 flex items-end w-full mb-2">
                       <h5 className="text-sm m-0 font-medium">{data.fNam}</h5>
