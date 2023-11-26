@@ -46,6 +46,7 @@ export const useGeoStore = create<GeoState>()((set) => ({
   user: {
     name: '',
     profile: 'visitor',
+    uid: ''
   },
   isLogged: false,
   coordinates: {
@@ -125,6 +126,7 @@ export const useGeoStore = create<GeoState>()((set) => ({
       user: {
         name: user.name,
         profile: user.profile,
+        uid: user.uid
       },
     })),
 }));

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Layout } from '../../components/layout';
 import { useNavigate } from 'react-router';
 
-import { onGetGeoloc, deleteGeoloc, getGeolocs } from '../../../firebase';
+import { onGetGeoloc, deleteGeoloc } from '../../../firebase';
 import {
   DocumentWithId,
   IDataFirebase,
@@ -38,9 +38,9 @@ export const Places = () => {
 
   useEffect(() => {
     async function fetchLocations() {
-      await getGeolocs();
+      // await getGeolocs(user.uid);
       try {
-        onGetGeoloc((querySnapshot: DocumentWithId[]) => {
+        onGetGeoloc(user.uid, (querySnapshot: DocumentWithId[]) => {
           const locations: IGeoData[] = [];
           querySnapshot.forEach((doc: DocumentWithId) => {
             const geoloc = doc.data();

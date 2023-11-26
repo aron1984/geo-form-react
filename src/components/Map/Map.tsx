@@ -29,7 +29,7 @@ interface LayersControlWithClassNameProps extends LayersControlProps {
 }
 
 export const Map = () => {
-  const {myCoordinates, setMyPosition, setCoordinates, coordinates} =
+  const {myCoordinates, setMyPosition, setCoordinates, coordinates, user} =
     useGeoStore();
   const [geoData, setgeoData] = useState([]);
   const [storedData, setStoredData] = useState([]);
@@ -66,7 +66,7 @@ export const Map = () => {
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    getGeolocs().then((res: any) => {
+    getGeolocs(user.uid).then((res: any) => {
       // console.log(res);
       setgeoData(res);
     });

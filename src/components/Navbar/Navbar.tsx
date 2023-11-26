@@ -23,6 +23,7 @@ export const Navbar: FC<Props> = ({items}) => {
     setIsLoggedOut,
     setShowLoadingSpiner,
   } = useGeoStore();
+  console.log(user);
   const [dataUserLogin, setDataUserLogin] = useState({
     email: '',
     password: '',
@@ -36,14 +37,14 @@ export const Navbar: FC<Props> = ({items}) => {
     const userCurrent = auth.currentUser;
     if (userCurrent !== null) {
       // const displayName = user.displayName;
-      // const uid = userCurrent?.uid;
+      const uid = userCurrent?.uid;
       // const photoURL = user.photoURL;
       // const emailVerified = user.emailVerified;
       const email = userCurrent?.email;
-      setUser({name: email, profile: presenter.userProfile(email)});
+      setUser({name: email, profile: presenter.userProfile(email), uid});
       setIsLoggedIn();
     }
-  }, []);
+  }, [auth.currentUser]);
 
   const login = () => {
     setShowLoadingSpiner(true);
@@ -55,10 +56,12 @@ export const Navbar: FC<Props> = ({items}) => {
       .then((userCredential) => {
         const user = userCredential.user;
         const userName = user.email;
+        const userUid = userCredential?.user?.uid;
 
         setUser({
           name: userName,
           profile: presenter.userProfile(userCredential?.user?.email),
+          uid: userUid
         });
         setIsLoggedIn();
         setShowErrorSignIn(false);
@@ -78,7 +81,7 @@ export const Navbar: FC<Props> = ({items}) => {
   const logOut = () => {
     setShowLoadingSpiner(true);
     signOut(auth).then(() => {
-      setUser({name: '', profile: 'visitor'});
+      setUser({name: '', profile: 'visitor', uid: ''});
       setIsLoggedOut();
     })
       .catch((error) => {

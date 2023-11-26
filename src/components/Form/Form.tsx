@@ -3,25 +3,10 @@ import { useGeoStore } from '../../store/store';
 import { saveGeoloc, updateGeoloc } from '../../../firebase';
 import Modal from '../Modal/Modal';
 import { IDataFirebase } from '../../utils/interfaces.ts';
-// import { getAuth } from 'firebase/auth';
 
 export const Form = () => {
   const isEnabled = false;
   const label = 'text-gray-200 text-sm md:text-lg';
-
-  // Obtener el usuario actual
-  // const auth = getAuth();
-
-  // const user = auth.currentUser;
-
-  // // Verificar si hay un usuario autenticado
-  //   if (user) {
-  //     // Obtener el UID del usuario
-  //     const uid = user.uid;
-  //     console.log('UID del usuario actual:', uid);
-  //   // } else {
-  //   //   console.log('No hay usuario autenticado');
-  //   // }
 
   const {
     coordinates,
@@ -41,13 +26,14 @@ export const Form = () => {
     name: '',
     image: null as File | null,
     description: '',
+    userUid: user?.uid as string | ''
   });
   const [errorGeneral, setErrorGeneral] = useState(false);
   const [errors, setErrors] = useState({
     latitude: '',
     longitude: '',
     name: '',
-    description: '',
+    description: ''
   });
 
   const [showModalSucces, setShowModalSucces] = useState(false);
@@ -131,6 +117,7 @@ export const Form = () => {
       name: '',
       image: null,
       description: '',
+      userUid: ''
     });
   };
 
@@ -139,6 +126,7 @@ export const Form = () => {
     fLng: string;
     fNam: string;
     fDes: string;
+    fUid: string;
   }) => {
     try {
       // setFormDataStore(data);
@@ -153,6 +141,7 @@ export const Form = () => {
           name: '',
           image: null,
           description: '',
+          userUid: '',
         });
         setShowModalSucces(true);
       }
@@ -215,11 +204,12 @@ export const Form = () => {
       fLng: formData.longitude,
       fNam: formData.name,
       fDes: formData.description,
+      fUid: formData.userUid
     };
 
     // TODO: tener en cuenta esta logica para cuando mostremos solo la informacion del un usuario determinado de firebase
     // Por ahora damos la opción de guardar en en sessionStorage las localizaciones para que el usuario tenga la experiencia
-    if (user.profile === 'admin') {
+    if (user.uid.length > 0) {
       hadleSubmitUserLogged(data);
     } else {
       saveGeolocToLocalStorage(data);

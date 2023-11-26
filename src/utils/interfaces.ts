@@ -4,6 +4,7 @@ export interface IItems {
   id: IPathId;
   path: string;
 }
+
 [];
 
 export type IModalType = 'success' | 'error' | 'alert';
@@ -41,6 +42,7 @@ export type ILoaderColor = 'save' | 'delete' | 'edit';
 export interface IUser {
   name: string | null | undefined;
   profile: 'admin' | 'client' | 'visitor' | undefined;
+  uid: string
 }
 
 export interface ILogin {
