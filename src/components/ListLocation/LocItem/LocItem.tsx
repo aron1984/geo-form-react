@@ -45,7 +45,7 @@ export const LocItem: FC<ILoc> = ({
           <p>{item.description}</p>
         </div>
       </div>
-      {isLogged && user.profile === 'admin' && (
+      {isLogged && user.uid.length > 0 && (
         <div className="flex flex-col md:flex-row md:items-center items-center justify-center w-1/6 gap-2 border-l-2">
           <img
             className="w-8 h-8 cursor-pointer"
