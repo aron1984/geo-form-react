@@ -1,12 +1,27 @@
-import React, { useEffect, useState } from "react";
-import { useGeoStore } from "../../store/store";
-import { saveGeoloc, updateGeoloc } from "../../../firebase";
-import Modal from "../Modal/Modal";
-import {IDataFirebase} from "../../utils/interfaces.ts";
+import React, { useEffect, useState } from 'react';
+import { useGeoStore } from '../../store/store';
+import { saveGeoloc, updateGeoloc } from '../../../firebase';
+import Modal from '../Modal/Modal';
+import { IDataFirebase } from '../../utils/interfaces.ts';
+// import { getAuth } from 'firebase/auth';
 
 export const Form = () => {
   const isEnabled = false;
-  const label = "text-gray-200 text-sm md:text-lg";
+  const label = 'text-gray-200 text-sm md:text-lg';
+
+  // Obtener el usuario actual
+  // const auth = getAuth();
+
+  // const user = auth.currentUser;
+
+  // // Verificar si hay un usuario autenticado
+  //   if (user) {
+  //     // Obtener el UID del usuario
+  //     const uid = user.uid;
+  //     console.log('UID del usuario actual:', uid);
+  //   // } else {
+  //   //   console.log('No hay usuario autenticado');
+  //   // }
 
   const {
     coordinates,
@@ -21,18 +36,18 @@ export const Form = () => {
   } = useGeoStore();
 
   const [formData, setFormData] = useState({
-    latitude: coordinates?.latitude || "",
-    longitude: coordinates?.longitude || "",
-    name: "",
+    latitude: coordinates?.latitude || '',
+    longitude: coordinates?.longitude || '',
+    name: '',
     image: null as File | null,
-    description: "",
+    description: '',
   });
   const [errorGeneral, setErrorGeneral] = useState(false);
   const [errors, setErrors] = useState({
-    latitude: "",
-    longitude: "",
-    name: "",
-    description: "",
+    latitude: '',
+    longitude: '',
+    name: '',
+    description: '',
   });
 
   const [showModalSucces, setShowModalSucces] = useState(false);
@@ -50,32 +65,32 @@ export const Form = () => {
     }
   };
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
 
-    if (name === "latitude") {
-      if (value === "-") {
-        return setLatitude("");
+    if (name === 'latitude') {
+      if (value === '-') {
+        return setLatitude('');
       }
       setLatitude(value);
     }
 
-    if (name === "longitude") {
-      if (value === "-") {
-        return setLongitude("");
+    if (name === 'longitude') {
+      if (value === '-') {
+        return setLongitude('');
       }
       setLongitude(value);
     }
 
-    if (name === "description") {
+    if (name === 'description') {
       setFormData({
         ...formData,
         description: value,
       });
     }
 
-    if (name === "name") {
+    if (name === 'name') {
       setFormData({
         ...formData,
         name: value,
@@ -83,43 +98,48 @@ export const Form = () => {
     }
 
     // Verificar si el campo está vacío en el evento blur
-    if (e.type === "blur" && value.length < 1) {
+    if (e.type === 'blur' && value.length < 1) {
       setErrors((prevErrors) => ({
         ...prevErrors,
-        [name]: "Este campo no puede estar vacío",
+        [name]: 'Este campo no puede estar vacío',
       }));
     } else {
       setErrors((prevErrors) => ({
         ...prevErrors,
-        [name]: "", // Limpiar el mensaje de error si el campo ya no está vacío
+        [name]: '', // Limpiar el mensaje de error si el campo ya no está vacío
       }));
     }
   };
 
   const isSubmitDisabled =
-    formData.latitude === "" ||
-    formData.longitude === "" ||
-    formData.name === "" ||
-    formData.description === ""
-    // user.profile === "admin";
+    formData.latitude === '' ||
+    formData.longitude === '' ||
+    formData.name === '' ||
+    formData.description === '';
+  // user.profile === "admin";
 
   const isClearEnabled =
-    formData.latitude !== "" ||
-    formData.longitude !== "" ||
-    formData.name !== "" ||
-    formData.description !== "";
+    formData.latitude !== '' ||
+    formData.longitude !== '' ||
+    formData.name !== '' ||
+    formData.description !== '';
 
   const handleClearForm = () => {
     setFormData({
-      latitude: "",
-      longitude: "",
-      name: "",
+      latitude: '',
+      longitude: '',
+      name: '',
       image: null,
-      description: "",
+      description: '',
     });
   };
 
-  const hadleSubmitUserLogged = (data: {fLat: string, fLng: string, fNam: string, fDes: string}) => {
+  const hadleSubmitUserLogged = (data: {
+    fLat: string;
+    fLng: string;
+    fNam: string;
+    fDes: string;
+  }) => {
     try {
       // setFormDataStore(data);
       if (selectedDocId.length > 0) {
@@ -128,11 +148,11 @@ export const Form = () => {
       } else {
         saveGeoloc(data);
         setFormData({
-          latitude: "",
-          longitude: "",
-          name: "",
+          latitude: '',
+          longitude: '',
+          name: '',
           image: null,
-          description: "",
+          description: '',
         });
         setShowModalSucces(true);
       }
@@ -142,7 +162,7 @@ export const Form = () => {
       setShowLoadingSpiner(false);
       setShowModalError(true);
     }
-  }
+  };
 
   const saveGeolocToLocalStorage = (data: IDataFirebase) => {
     const userObj = {
@@ -154,7 +174,8 @@ export const Form = () => {
 
     const dataUserString: string | null = sessionStorage.getItem('dataUser');
 
-    let dataUser: { fLat: string; fLng: string; fNam: string; fDes: string }[] = [];
+    let dataUser: { fLat: string; fLng: string; fNam: string; fDes: string }[] =
+      [];
 
     try {
       if (dataUserString !== null) {
@@ -173,8 +194,7 @@ export const Form = () => {
       setShowLoadingSpiner(false);
       setShowModalError(true);
     }
-
-  }
+  };
 
   const onHandleSubmit = () => {
     setShowLoadingSpiner(true);
@@ -186,7 +206,7 @@ export const Form = () => {
   const handleSubmit = () => {
     // e.preventDefault();
 
-    if (Object.values(errors).some((error) => error !== "")) {
+    if (Object.values(errors).some((error) => error !== '')) {
       setErrorGeneral(true);
       return;
     }
@@ -199,20 +219,20 @@ export const Form = () => {
 
     // TODO: tener en cuenta esta logica para cuando mostremos solo la informacion del un usuario determinado de firebase
     // Por ahora damos la opción de guardar en en sessionStorage las localizaciones para que el usuario tenga la experiencia
-    if(user.profile === 'admin') {
+    if (user.profile === 'admin') {
       hadleSubmitUserLogged(data);
     } else {
-      saveGeolocToLocalStorage(data)
+      saveGeolocToLocalStorage(data);
     }
   };
 
   useEffect(() => {
     setFormData({
       ...formData,
-      latitude: coordinates?.latitude || "",
-      longitude: coordinates?.longitude || "",
+      latitude: coordinates?.latitude || '',
+      longitude: coordinates?.longitude || '',
     });
-  }, [coordinates?.latitude]);
+  }, []);
 
   return (
     <>
@@ -236,7 +256,7 @@ export const Form = () => {
                 type="text"
                 id="latitude"
                 name="latitude"
-                value={coordinates?.latitude || ""}
+                value={coordinates?.latitude || ''}
                 onChange={handleChange}
                 onBlur={handleChange} // Manejar el evento blur
               />
@@ -252,7 +272,7 @@ export const Form = () => {
                 id="longitude"
                 name="longitude"
                 value={
-                  coordinates.longitude === "" ? "" : coordinates.longitude
+                  coordinates.longitude === '' ? '' : coordinates.longitude
                 }
                 onChange={handleChange}
                 onBlur={handleChange} // Manejar el evento blur
@@ -315,8 +335,8 @@ export const Form = () => {
             <button
               className={
                 isSubmitDisabled
-                  ? "flex w-1/2 bg-gray-400 text-white justify-center items-center h-10 mt-4"
-                  : "flex w-1/2 bg-cyan-400 text-white justify-center items-center h-10 mt-4"
+                  ? 'flex w-1/2 bg-gray-400 text-white justify-center items-center h-10 mt-4'
+                  : 'flex w-1/2 bg-cyan-400 text-white justify-center items-center h-10 mt-4'
               }
               type="button"
               disabled={isSubmitDisabled}
@@ -327,8 +347,8 @@ export const Form = () => {
             <button
               className={
                 isClearEnabled
-                  ? "flex w-1/2 bg-red-500 text-white justify-center items-center h-10 mt-4"
-                  : "flex w-1/2 bg-gray-400 text-white justify-center items-center h-10 mt-4"
+                  ? 'flex w-1/2 bg-red-500 text-white justify-center items-center h-10 mt-4'
+                  : 'flex w-1/2 bg-gray-400 text-white justify-center items-center h-10 mt-4'
               }
               type="reset"
               onClick={handleClearForm}
@@ -343,11 +363,11 @@ export const Form = () => {
         <Modal
           onPrimaryAction={() => setShowModalSucces(false)}
           data={{
-            title: "Perfecto",
-            textButton: "Entendido",
-            descripton: "Guardaste la localización con éxito",
+            title: 'Perfecto',
+            textButton: 'Entendido',
+            descripton: 'Guardaste la localización con éxito',
             icon: undefined,
-            type: "success",
+            type: 'success',
           }}
         />
       )}
@@ -358,12 +378,12 @@ export const Form = () => {
             handleClearForm();
           }}
           data={{
-            title: "Algo salió mal",
-            textButton: "Entendido",
+            title: 'Algo salió mal',
+            textButton: 'Entendido',
             descripton:
-              "No se pudo guardar la localización. Volvé a intentarlo más tarde",
+              'No se pudo guardar la localización. Volvé a intentarlo más tarde',
             icon: undefined,
-            type: "error",
+            type: 'error',
           }}
         />
       )}
@@ -371,15 +391,15 @@ export const Form = () => {
         <Modal
           onPrimaryAction={() => {
             setShowModalUpdateSucces(false);
-            setSelectedDocId("");
+            setSelectedDocId('');
             handleClearForm();
           }}
           data={{
-            title: "Actualizaste",
-            textButton: "Entendido",
-            descripton: "Actualizaste el localización con éxito.",
+            title: 'Actualizaste',
+            textButton: 'Entendido',
+            descripton: 'Actualizaste el localización con éxito.',
             icon: undefined,
-            type: "success",
+            type: 'success',
           }}
         />
       )}

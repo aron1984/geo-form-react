@@ -1,12 +1,15 @@
-import { ChangeEvent, FC } from "react";
-import { IUser } from "../../utils/interfaces";
-import { Auth } from "firebase/auth";
+import { ChangeEvent, FC } from 'react';
+import { IUser } from '../../utils/interfaces';
+import { Auth } from 'firebase/auth';
 
-type LoginFunction = (dataUserLogin: { email: string; password: string; }, auth: Auth) => void;
+type LoginFunction = (
+  dataUserLogin: { email: string; password: string },
+  auth: Auth,
+) => void;
 
 interface Props {
   action: () => void | LoginFunction;
-  type: "signIn" | "signOut";
+  type: 'signIn' | 'signOut';
   dataUserLogin: { email: string; password: string };
   setDataUserLogin: (dataUserLogin: {
     email: string;
@@ -14,7 +17,7 @@ interface Props {
   }) => void;
   secondaryAction: () => void;
   user: IUser;
-  errorSingIn: boolean
+  errorSingIn: boolean;
 }
 
 export const ModalSign: FC<Props> = ({
@@ -24,9 +27,8 @@ export const ModalSign: FC<Props> = ({
   setDataUserLogin,
   secondaryAction,
   user,
-  errorSingIn
+  errorSingIn,
 }) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const { name, value } = e.target;
@@ -37,7 +39,7 @@ export const ModalSign: FC<Props> = ({
     action();
   };
   const renderForm = () => {
-    if (type === "signIn") {
+    if (type === 'signIn') {
       return (
         <form>
           <div className="mb-4">
@@ -49,7 +51,8 @@ export const ModalSign: FC<Props> = ({
             </label>
             {errorSingIn && (
               <span className="block text-xs font-medium text-red-900">
-                No es un usuario registrado. Ponte en contacto con el administrador
+                No es un usuario registrado. Ponte en contacto con el
+                administrador
               </span>
             )}
             <input
@@ -91,7 +94,7 @@ export const ModalSign: FC<Props> = ({
         </form>
       );
     }
-    if (type === "signOut") {
+    if (type === 'signOut') {
       return (
         <div>
           <div className="mb-4">

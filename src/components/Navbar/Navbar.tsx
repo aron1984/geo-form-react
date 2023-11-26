@@ -1,10 +1,10 @@
-import { FC, useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { IItems } from "../../utils/interfaces";
-import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { useGeoStore } from "../../store/store";
-import { ModalSign } from "../ModalSign";
-import { NavbarPresenter } from "./NavbarPresenter";
+import { FC, useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { IItems } from '../../utils/interfaces';
+import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { useGeoStore } from '../../store/store';
+import { ModalSign } from '../ModalSign';
+import { NavbarPresenter } from './NavbarPresenter';
 
 interface Props {
   items: IItems[];
@@ -12,7 +12,7 @@ interface Props {
 
 export const Navbar: FC<Props> = ({ items }) => {
   const SUPER_USER = import.meta.env.VITE_SUPER_USER_ADMIN;
-  const presenter = new NavbarPresenter(SUPER_USER)
+  const presenter = new NavbarPresenter(SUPER_USER);
 
   const location = useLocation();
   const {
@@ -24,12 +24,11 @@ export const Navbar: FC<Props> = ({ items }) => {
     setShowLoadingSpiner,
   } = useGeoStore();
   const [dataUserLogin, setDataUserLogin] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
   const [showModalSign, setShowModalSign] = useState(false);
   const [showErrorSignIn, setShowErrorSignIn] = useState(false);
-  
 
   const auth = getAuth();
 
@@ -44,14 +43,14 @@ export const Navbar: FC<Props> = ({ items }) => {
       setUser({ name: email, profile: presenter.userProfile(email) });
       setIsLoggedIn();
     }
-  }, [setUser, auth.currentUser]);
+  }, []);
 
   const login = () => {
     setShowLoadingSpiner(true);
     signInWithEmailAndPassword(
       auth,
       dataUserLogin.email,
-      dataUserLogin.password
+      dataUserLogin.password,
     )
       .then((userCredential) => {
         const user = userCredential.user;
@@ -77,18 +76,18 @@ export const Navbar: FC<Props> = ({ items }) => {
   };
 
   const logOut = () => {
-    setShowLoadingSpiner(true)
+    setShowLoadingSpiner(true);
     signOut(auth)
       .then(() => {
-        setUser({ name: "", profile: "visitor" });
+        setUser({ name: '', profile: 'visitor' });
         setIsLoggedOut();
       })
       .catch((error) => {
-        console.error("Error al cerrar sesión: ", error);
+        console.error('Error al cerrar sesión: ', error);
       })
       .finally(() => {
         setShowModalSign(false);
-        setShowLoadingSpiner(false)
+        setShowLoadingSpiner(false);
       });
   };
 
@@ -115,8 +114,8 @@ export const Navbar: FC<Props> = ({ items }) => {
                 key={id}
                 className={
                   location.pathname === path
-                    ? "flex items-center px-3 text-cyan-300 font-semibold text-xs md:text-lg"
-                    : "flex items-center px-3 text-slate-300 font-semibold hover:text-emerald-400 text-xs md:text-lg"
+                    ? 'flex items-center px-3 text-cyan-300 font-semibold text-xs md:text-lg'
+                    : 'flex items-center px-3 text-slate-300 font-semibold hover:text-emerald-400 text-xs md:text-lg'
                 }
               >
                 <Link to={path}>{id.toUpperCase()}</Link>
@@ -126,12 +125,12 @@ export const Navbar: FC<Props> = ({ items }) => {
           <img
             src={
               user.name?.length
-                ? "/img/user-masc.png"
-                : "/img/user-masc-none.png"
+                ? '/img/user-masc.png'
+                : '/img/user-masc-none.png'
             }
-            alt={user.name?.length ? user.name : "No logueado"}
+            alt={user.name?.length ? user.name : 'No logueado'}
             className="px-2 ml-2 md:ml-3 h-6 pl-2 md:pl-3 md:h-8"
-            style={{ borderLeft: "solid 1px gray" }}
+            style={{ borderLeft: 'solid 1px gray' }}
             onClick={handleClick}
           />
         </div>
@@ -140,7 +139,7 @@ export const Navbar: FC<Props> = ({ items }) => {
         <ModalSign
           action={!isLogged ? login : logOut}
           secondaryAction={hideModal}
-          type={isLogged ? "signOut" : "signIn"}
+          type={isLogged ? 'signOut' : 'signIn'}
           dataUserLogin={dataUserLogin}
           setDataUserLogin={setDataUserLogin}
           user={user}

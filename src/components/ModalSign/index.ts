@@ -1,1 +1,1 @@
-export * from "./ModalSign"
+export * from './ModalSign';

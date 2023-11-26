@@ -1,19 +1,19 @@
 export class NavbarPresenter {
   SUPER_USER: string;
- 
+
   // Normal signature with defaults
   constructor(superUser: string) {
-    this.SUPER_USER = superUser
+    this.SUPER_USER = superUser;
   }
 
-  userProfile(email:string | null) {
+  userProfile(email: string | null | undefined) {
     if (email === this.SUPER_USER) {
-      return "admin";
+      return 'admin';
     } else if (email?.length && email !== this.SUPER_USER) {
-      return "client";
+      return 'client';
     }
     if (!email?.length) {
-      return "visitor";
+      return 'visitor';
     }
   }
 }
