@@ -23,7 +23,6 @@ export const Navbar: FC<Props> = ({items}) => {
     setIsLoggedOut,
     setShowLoadingSpiner,
   } = useGeoStore();
-  console.log(user);
   const [dataUserLogin, setDataUserLogin] = useState({
     email: '',
     password: '',
