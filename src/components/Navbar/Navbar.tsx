@@ -22,6 +22,7 @@ export const Navbar: FC<Props> = ({items}) => {
     setIsLoggedIn,
     setIsLoggedOut,
     setShowLoadingSpiner,
+    clearFormDataStore,
   } = useGeoStore();
   const [dataUserLogin, setDataUserLogin] = useState({
     email: '',
@@ -43,7 +44,7 @@ export const Navbar: FC<Props> = ({items}) => {
       setUser({name: email, profile: presenter.userProfile(email), uid});
       setIsLoggedIn();
     }
-  }, [auth.currentUser, setIsLoggedIn, setUser]);
+  }, [auth.currentUser]);
 
   const login = () => {
     setShowLoadingSpiner(true);
@@ -82,6 +83,7 @@ export const Navbar: FC<Props> = ({items}) => {
     signOut(auth).then(() => {
       setUser({name: '', profile: 'visitor', uid: ''});
       setIsLoggedOut();
+      clearFormDataStore(); //TODO: REVISAR ESTE COMPORTAMIENTO.
     })
       .catch((error) => {
         console.error('Error al cerrar sesión: ', error);

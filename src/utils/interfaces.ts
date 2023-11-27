@@ -25,6 +25,7 @@ export interface IDataFirebase {
   fLng: string;
   fNam: string;
   fDes: string;
+  fUid: string;
 }
 
 //Esta interface es para agregar el id como posible data en el tipo que esperamos de firebase. Por defecto no lo tenia, pero doc.id nos devuelve el identificador de ese documento

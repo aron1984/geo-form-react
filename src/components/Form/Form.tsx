@@ -26,7 +26,7 @@ export const Form = () => {
     name: '',
     image: null as File | null,
     description: '',
-    userUid: user?.uid as string | ''
+    userUid: user?.uid
   });
   const [errorGeneral, setErrorGeneral] = useState(false);
   const [errors, setErrors] = useState({
@@ -159,6 +159,7 @@ export const Form = () => {
       fLng: data.fLng,
       fNam: data.fNam,
       fDes: data.fDes,
+      fUid: user.uid
     };
 
     const dataUserString: string | null = sessionStorage.getItem('dataUser');
