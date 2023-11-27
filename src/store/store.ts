@@ -23,6 +23,7 @@ interface GeoState {
     fLng: string;
     fNam: string;
     fDes: string;
+    fUid: string;
   };
 
   selectedDocId: string;
@@ -33,6 +34,7 @@ interface GeoState {
   setSelectedDocId: (id: string) => void;
 
   setFormDataStore: (data: IDataFirebase) => void;
+  clearFormDataStore: () => void;
 
   setShowLoadingSpiner: (status: boolean) => void;
   setCoordinates: (lat: string, long: string) => void;
@@ -59,6 +61,7 @@ export const useGeoStore = create<GeoState>()((set) => ({
     fLng: '',
     fNam: '',
     fDes: '',
+    fUid: ''
   },
   selectedDocId: '',
   setIsLoggedIn: () =>
@@ -73,7 +76,7 @@ export const useGeoStore = create<GeoState>()((set) => ({
     set(() => ({
       selectedDocId: id,
     })),
-  setFormDataStore: ({ fLat, fLng, fNam, fDes }) =>
+  setFormDataStore: ({ fLat, fLng, fNam, fDes, fUid }) =>
     set((state) => ({
       ...state.formDataStore,
       formDataStore: {
@@ -81,6 +84,17 @@ export const useGeoStore = create<GeoState>()((set) => ({
         fLng: fLng,
         fNam: fNam,
         fDes: fDes,
+        fUid: fUid
+      },
+    })),
+  clearFormDataStore: () =>
+    set(() => ({
+      formDataStore: {
+        fLat: '',
+        fLng: '',
+        fNam: '',
+        fDes: '',
+        fUid: ''
       },
     })),
   setShowLoadingSpiner: (status) => set(() => ({ loadingSpinner: status })),
